@@ -27,12 +27,21 @@
 		"id": 3
 	},
 	{
+		"title": "poe",
+		"description": "ARPG",
+		"price": 15,
+		"thumbnail": "www",
+		"code": 3,
+		"stock": 7,
+		"id": 4
+	},
+	{
 		"title": "FF9",
 		"description": "RPG",
 		"price": 12,
 		"thumbnail": "www",
 		"code": 4,
-		"stock": 10,
+		"stock": 2,
 		"id": 5
 	},
 	{

@@ -3,7 +3,7 @@ import fs from "fs"
 export default class ProductManager {
 
     constructor() {
-        this.path = "\Products.json";
+        this.path = "./src/Products.json";
     }
 
     addProduct = async(product) => {
@@ -47,12 +47,13 @@ export default class ProductManager {
 
      }
 
-    updateProduct = async(id) => {
+    updateProduct = async(id,stock) => {
 
         const products = await this.getProducts()
 
-        const updatedProduct = products.find(product => product.id === id)
-        updatedProduct.stock = 10
+        const updatedProduct = products.find(product => product.id == id)
+
+        updatedProduct.stock = stock
 
         await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'))
        
@@ -64,9 +65,9 @@ export default class ProductManager {
 
          const products = await this.getProducts()
 
-         const newProducts = products.filter(product => product.id !== id)
+         const newProducts = products.filter(product => product.id != id)
          
-         await fs.promises.writeFile(this.path, JSON.stringify(newProducts, null, '\t'))
+        await fs.promises.writeFile(this.path, JSON.stringify(newProducts, null, '\t'))
 
         return newProducts
 
