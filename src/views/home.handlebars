@@ -1,0 +1,15 @@
+<div>
+    {{#if products}}
+    <h1>Ha agregado los siguientes productos:</h1>
+    <ul>
+    {{#each products}}
+    <li>{{this.title}}</li>
+    {{/each}}
+    </ul>
+    {{else}}
+    <h2>No ha agregado ningun producto.</h2>
+    {{/if}}
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

@@ -1,92 +1,35 @@
 [
 	{
-		"title": "poe",
-		"description": "ARPG",
-		"price": 15,
+		"title": "string",
+		"description": "string",
+		"code": "string",
+		"price": 4,
+		"status": true,
+		"stock": 6,
+		"category": "string",
 		"thumbnail": "www",
-		"code": 3,
-		"stock": 7,
 		"id": 1
 	},
 	{
-		"title": "FF9",
-		"description": "RPG",
-		"price": 12,
+		"title": "string1",
+		"description": "string",
+		"code": "string",
+		"price": 4,
+		"status": true,
+		"stock": 6,
+		"category": "string",
 		"thumbnail": "www",
-		"code": 4,
-		"stock": 2,
 		"id": 2
 	},
 	{
-		"title": "DIABLO4",
-		"description": "ARPG",
-		"price": 20,
+		"title": "string2",
+		"description": "string",
+		"code": "string",
+		"price": 4,
+		"status": true,
+		"stock": 6,
+		"category": "string",
 		"thumbnail": "www",
-		"code": 5,
-		"stock": 2,
 		"id": 3
-	},
-	{
-		"title": "poe",
-		"description": "ARPG",
-		"price": 15,
-		"thumbnail": "www",
-		"code": 3,
-		"stock": 7,
-		"id": 4
-	},
-	{
-		"title": "FF9",
-		"description": "RPG",
-		"price": 12,
-		"thumbnail": "www",
-		"code": 4,
-		"stock": 2,
-		"id": 5
-	},
-	{
-		"title": "DIABLO4",
-		"description": "ARPG",
-		"price": 20,
-		"thumbnail": "www",
-		"code": 5,
-		"stock": 2,
-		"id": 6
-	},
-	{
-		"title": "poe",
-		"description": "ARPG",
-		"price": 15,
-		"thumbnail": "www",
-		"code": 3,
-		"stock": 7,
-		"id": 7
-	},
-	{
-		"title": "FF9",
-		"description": "RPG",
-		"price": 12,
-		"thumbnail": "www",
-		"code": 4,
-		"stock": 2,
-		"id": 8
-	},
-	{
-		"title": "DIABLO4",
-		"description": "ARPG",
-		"price": 20,
-		"thumbnail": "www",
-		"code": 5,
-		"stock": 2,
-		"id": 9
-	},
-	{
-		"title": "DIABLO4",
-		"description": "ARPG",
-		"price": 20,
-		"thumbnail": "www",
-		"code": 5,
-		"stock": 2,
-		"id": 10
 	}
 ]

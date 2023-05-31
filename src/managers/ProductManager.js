@@ -40,7 +40,7 @@ export default class ProductManager {
 
          const products = await this.getProducts()
 
-         const product = products.find(product => product.id === id)
+         const product = products.find(product => product.id == id)
         
          return product
 

@@ -1,9 +1,19 @@
 import { Router } from "express";
-import ProductManager from "../ProductManager.js";
+import ProductManager from "../managers/ProductManager.js";
 
 const router = Router ()
 
 const manager = new ProductManager();
+
+router.get ("/list", async (req,res) => {
+
+    const products = await manager.getProducts()
+
+    res.render("home", {
+        products
+    })
+}
+)
 
 router.get ("/", async (req,res) => {
 
@@ -16,7 +26,7 @@ router.get ("/", async (req,res) => {
         return res.send(limitedProducts)
     }
 
-     res.send(products)
+    res.send(products)
  }
  )
 
@@ -35,6 +45,10 @@ router.get ("/:id", async (req,res) => {
 router.post ("/", async (req,res) =>{
 
     const {title, description, code, price, status, stock, category, thumbnail } = req.body
+
+    if( !title || !description|| !code || !price || !status || !stock || !category || !thumbnail){
+        return res.send("Error")
+    }
 
     const product =  {title, description, code, price, status, stock, category, thumbnail }
 
@@ -181,9 +195,9 @@ const createProduct = async () => {
     let productCreated10 = await manager.addProduct (product10)
 }
 
-let addedProduct = await createProduct();
-addedProduct = await manager.getProducts();
-console.log(addedProduct)
+// let addedProduct = await createProduct();
+// addedProduct = await manager.getProducts();
+// console.log(addedProduct)
 
 // let singleproduct = await manager.getProductById (3)
 // console.log(singleproduct)

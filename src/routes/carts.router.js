@@ -1,6 +1,7 @@
 import { Router } from "express";
-import CartManager from "../cartManager.js";
-import ProductManager from "../ProductManager.js";
+import CartManager from "../managers/CartManager.js";
+import ProductManager from "../managers/ProductManager.js";
+
 
 const router = Router ()
 
@@ -29,9 +30,7 @@ router.get ("/:cid", async (req,res) => {
 
 router.post ("/", async (req,res) =>{
 
-    const {products} = req.body
-
-    const cart =  {products}
+    const cart =  {products: []}
 
     let postCart = await manager.addCart(cart)
 
@@ -42,17 +41,31 @@ router.post ("/", async (req,res) =>{
 
 router.post ("/:cid/products/:id", async (req,res)=> {
 
-    const products = await productManager.getProducts()
-
     const {cid} = req.params
 
     const {id} = req.params
 
     const cart = await manager.getCartById(cid)
 
-    const productById = products.find(product => product.id == id)
+    if (!cart) {
+        return res.send("Error")
+    }
 
-    cart.products.push(productById.id)
+    const product = await productManager.getProductById(id)
+
+    if (!product) {
+        return res.send("Error")
+    }
+
+    const productIndex = cart.products.findIndex(
+        (product) => product.id == parseInt (id)
+    )
+
+    if (productIndex === -1){
+        cart.products.push({id:product.id, quantity: 1})
+    } else {
+        cart.products[productIndex].quantity++;
+    }
 
     await manager.updateCartProductsById(cid,cart.products)
 
@@ -75,7 +88,7 @@ const createCart = async () => {
     let cartCreated2 = await manager.addCart (cart2)
 }
 
-let addedCart = await createCart ()
-addedCart = await manager.getCarts()
+// let addedCart = await createCart ()
+// addedCart = await manager.getCarts()
 
 export default router
