@@ -1,50 +1,100 @@
 import { Router } from "express";
-import ProductManager from "../managers/ProductManager.js";
+import ProductManager from "../Dao/managers/ProductManager.js";
+import ProductMongoManager from "../Dao/managers/ProductMongoManager.js";
+import { ProductsModel } from "../Dao/models/product.model.js";
 
 const router = Router ()
 
-const manager = new ProductManager();
+// const manager = new ProductManager();
 
-router.get ("/list", async (req,res) => {
-
-    const products = await manager.getProducts()
-
-    res.render("home", {
-        products
-    })
-}
-)
+const mongoManager = new ProductMongoManager ()
 
 router.get ("/", async (req,res) => {
 
-    const {limit} = req.query
+    try {
 
-    const products = await manager.getProducts()
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.limit || 10,
+            sort: {}
+        }
 
-    if (limit) {
-        const limitedProducts =  products.slice(0, limit)
-        return res.send(limitedProducts)
-    }
+         if (req.query.sort){
+             if (req.query.sort === "asc") options.sort.price = 1
+             else if (req.query.sort === "desc") options.sort.price = -1
+         }
 
-    res.send(products)
- }
- )
+        const filter = {}
+
+        if (req.query.category){
+            filter.category = req.query.category
+        }
+
+    
+        const {
+          docs: products,
+          totalPages,
+          prevPage,
+          nextPage,
+          page,
+          hasPrevPage,
+          hasNextPage,
+        } = await ProductsModel.paginate(filter,options)
+        
+    
+        const response = {
+          payload: products,
+          totalPages,
+          prevPage,
+          nextPage,
+          page,
+          hasPrevPage,
+          hasNextPage,
+          prevLink: hasPrevPage        
+            ? `http://localhost:8084/api/products?limit=${options.limit}&page=${prevPage}`
+             : null,
+          nextLink: hasNextPage
+             ? `http://localhost:8084/api/products?limit=${options.limit}&page=${nextPage}`
+             : null,
+        };
+    
+        return res.send(response);
+      } catch (error) {
+        console.log(error);
+        res.send("Error");
+      }
+})
 
 router.get ("/:id", async (req,res) => {
-    const products = await manager.getProducts()
 
-    const {id} = req.params
+    
+    try{
+    
+    const id = req.params.id
 
-    const product = products.find (product => product.id == id)
+    const product = await mongoManager.getProductById(id)
 
-    if (product) res.send(product)
-    else res.sendStatus (404)
+    // const product = await manager.getProductById(id)
+
+     if (product) res.send(product)
+     else res.status(404).json({error: "Producto no encontrado"})
+
+     } catch (error) {
+         console.log(error)
+     }
    
 })
 
 router.post ("/", async (req,res) =>{
 
-    const {title, description, code, price, status, stock, category, thumbnail } = req.body
+    const { title, 
+            description, 
+            code, 
+            price, 
+            status, 
+            stock, 
+            category, 
+            thumbnail } = req.body
 
     if( !title || !description|| !code || !price || !status || !stock || !category || !thumbnail){
         return res.send("Error")
@@ -52,9 +102,13 @@ router.post ("/", async (req,res) =>{
 
     const product =  {title, description, code, price, status, stock, category, thumbnail }
 
-    let postProduct = await manager.addProduct(product)
+    const addedProduct = await mongoManager.addProduct(product)
 
-    res.status(201).json(postProduct)
+    // let postProduct = await manager.addProduct(product)
+
+    req.app.get ("io").sockets.emit("products", await mongoManager.getProducts())
+
+    res.status(201).json(addedProduct)
 
 })
 
@@ -64,148 +118,40 @@ router.put ("/:id", async (req,res)=>{
 
     const {stock} = req.body
 
-    let postUpdatedProduct = await manager.updateProduct (id,stock)
+    // let postUpdatedProduct = await manager.updateProduct (id,stock)
 
-    if(postUpdatedProduct){
-        res.status(201).json(postUpdatedProduct)
+    const updatedProduct = await mongoManager.updateProduct (id,stock)
+
+    if(updatedProduct){
+        res.status(201).json({message: "producto actualizado", updateduser : updatedProduct})
     }
     else{
-        res.status(404).json({error: "persona no encontrada"})
+        return res.status(404).json({error: "producto inexistente"})
     }
     
 })
 
 router.delete ("/:id", async (req,res)=>{
 
-    const {id} = req.params
+    try{
 
-    const newProducts = await manager.deleteProduct(id)
+        const {id} = req.params
 
-    res.send(newProducts)
+        // const newProducts = await manager.deleteProduct(id)
+
+        const deletedProduct = await mongoManager.deleteProduct(id)
+
+        if(deletedProduct){
+            res.send({message: "producto borrado" , product : deletedProduct})
+        } else {
+            return res.send({message: "producto inexistente"})
+        }
+
+    } catch (error){
+        console.log(error)
+    }
 
 })
 
-const createProduct = async () => {
-
-    let product = {
-        title: "poe",
-        description: "ARPG",
-        price: 15,
-        thumbnail: "www",
-        code: 3,
-        stock: 7,
-    }
-    let product2 = {
-        title: "FF9",
-        description: "RPG",
-        price: 12,
-        thumbnail: "www",
-        code: 4,
-        stock: 2,
-    }
-
-    let product3 = {
-        title: "DIABLO4",
-        description: "ARPG",
-        price: 20,
-        thumbnail: "www",
-        code: 5,
-        stock: 2,
-    }
-
-    let product4 = {
-        title: "poe",
-        description: "ARPG",
-        price: 15,
-        thumbnail: "www",
-        code: 3,
-        stock: 7,
-    }
-    let product5 = {
-        title: "FF9",
-        description: "RPG",
-        price: 12,
-        thumbnail: "www",
-        code: 4,
-        stock: 2,
-    }
-
-    let product6 = {
-        title: "DIABLO4",
-        description: "ARPG",
-        price: 20,
-        thumbnail: "www",
-        code: 5,
-        stock: 2,
-    }
-
-    let product7 = {
-        title: "poe",
-        description: "ARPG",
-        price: 15,
-        thumbnail: "www",
-        code: 3,
-        stock: 7,
-    }
-    let product8 = {
-        title: "FF9",
-        description: "RPG",
-        price: 12,
-        thumbnail: "www",
-        code: 4,
-        stock: 2,
-    }
-
-    let product9 = {
-        title: "DIABLO4",
-        description: "ARPG",
-        price: 20,
-        thumbnail: "www",
-        code: 5,
-        stock: 2,
-    }
-
-    let product10 = {
-        title: "DIABLO4",
-        description: "ARPG",
-        price: 20,
-        thumbnail: "www",
-        code: 5,
-        stock: 2,
-    }
-
-    let productCreated = await manager.addProduct (product)
-
-    let productCreated2 = await manager.addProduct (product2)
-
-    let productCreated3 = await manager.addProduct (product3)
-
-    let productCreated4 = await manager.addProduct (product4)
-
-    let productCreated5 = await manager.addProduct (product5)
-
-    let productCreated6 = await manager.addProduct (product6)
-
-    let productCreated7 = await manager.addProduct (product7)
-
-    let productCreated8 = await manager.addProduct (product8)
-
-    let productCreated9 = await manager.addProduct (product9)
-
-    let productCreated10 = await manager.addProduct (product10)
-}
-
-// let addedProduct = await createProduct();
-// addedProduct = await manager.getProducts();
-// console.log(addedProduct)
-
-// let singleproduct = await manager.getProductById (3)
-// console.log(singleproduct)
-
-// let newProducts = await manager.deleteProduct (4)
-// console.log(newProducts)
-
-// let updatedProduct = await manager.updateProduct (5,20)
-// console.log(updatedProduct)
 
 export default router;

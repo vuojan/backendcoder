@@ -1,11 +1,16 @@
 const socket = io();
 
-// socket.emit("message", "hola a todos");
+const productsList = document.getElementById("productslist")
 
-// socket.on("socket_individual", data =>{
-//     console.log(data)
-// })
+socket.on("products", products => {
+    const allProductList = products.map((product)=>  
+         `<ul>
+             <li>Product: ${product.title}</li>
+             <li>Precio: ${product.price}</li>
+             <li>Stock: ${product.stock}</li>
+         </ul>` 
+        ).join("")
+    productsList.innerHTML = allProductList
+}
+)
 
-// socket.on("socket_quitatetu", data=>{
-//     console.log(data)
-// })

@@ -20,16 +20,6 @@
 		"category": "string",
 		"thumbnail": "www",
 		"id": 2
-	},
-	{
-		"title": "string2",
-		"description": "string",
-		"code": "string",
-		"price": 4,
-		"status": true,
-		"stock": 6,
-		"category": "string",
-		"thumbnail": "www",
-		"id": 3
 	}
+	
 ]

@@ -3,7 +3,9 @@
     <h1>Ha agregado los siguientes productos:</h1>
     <ul>
     {{#each products}}
-    <li>{{this.title}}</li>
+    <li>
+        <p>{{this.title}} : $ {{this.price}}</p> 
+    </li>
     {{/each}}
     </ul>
     {{else}}

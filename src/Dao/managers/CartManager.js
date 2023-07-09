@@ -7,6 +7,7 @@ export default class CartManager {
     }
 
     addCart = async(cart) => {
+
         const carts = await this.getCarts();
 
         if (carts.length === 0){
@@ -60,5 +61,7 @@ export default class CartManager {
         return carts
 
      }
+
+     
 
 }

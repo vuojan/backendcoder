@@ -1,13 +1,21 @@
 import express from "express";
-import { Server } from "socket.io";
+import { Server as IOServer } from "socket.io";
+import { Server as HttpServer} from "http"
 import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import viewsRouter from "./routes/views.router.js";
 import handlebars from "express-handlebars";
 import __dirname from "./utils.js";
+import ProductManager from "./Dao/managers/ProductManager.js"
+import mongoDBService from "./services/mongoDb.service.js";
+import ProductMongoManager from "./Dao/managers/ProductMongoManager.js";
 
 
 const app = express();
+const httpServer = new HttpServer (app)
+const io = new IOServer (httpServer)
+
+app.set("io",io);
 
 app.use (express.static (`${__dirname}/public`))
 app.use (express.json())
@@ -19,23 +27,31 @@ app.set("view engine", "handlebars")
 
 app.use("/api/products", productsRouter)
 app.use("/api/carts", cartsRouter)
-app.use("/api/realtimeproducts", viewsRouter)
+app.use("/", viewsRouter)
 
-const server = app.listen (8084, ()=> console.log("listening on 8084"))
+const server = httpServer.listen (8084, async ()=> {
 
-const io = new Server (server)
+  await mongoDBService();
 
-// io.on("connection", socket => {
-//     console.log("Cliente conectado")
+  console.log("listening on 8084")
 
-//     socket.on("message", data =>{
-//         console.log(data)
-//     })
+})
 
-//     socket.emit("socket_individual","mensaje para el socket")
+server.on("error", (error) => {
+    console.log(error);
+  });
 
-//     socket.broadcast.emit("socket_quitatetu", "quitate tu")
 
-// })
+
+io.on("connection", async (socket) => {
+     console.log("Cliente conectado")
+
+     const mongoManager = new ProductMongoManager ()
+
+     const products = await mongoManager.getProducts()
+
+     io.sockets.emit ( "products", products)
+
+ })
 
 

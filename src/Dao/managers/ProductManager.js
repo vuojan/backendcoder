@@ -17,7 +17,7 @@ export default class ProductManager {
 
         products.push(product)
         await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'))
-        return products
+        return product
 
         }
         
@@ -40,7 +40,7 @@ export default class ProductManager {
 
          const products = await this.getProducts()
 
-         const product = products.find(product => product.id == id)
+         const product = products.find(product => product.id === id)
         
          return product
 
