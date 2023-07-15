@@ -1,4 +1,9 @@
 <div>
+
+  <div>
+    <h1>Bivenido {{user._doc.first_name}}</h1>
+  </div>
+
   <h1>LISTA DE PRODUCTOS</h1>
 
   {{#each products}}
@@ -26,5 +31,13 @@
         <button>Siguiente</button>
     </a>
   {{/if}}
+
+  <div>
+    <form action="/api/session/logout" method="GET">
+
+        <button type="submit">Log_Out</button>
+    
+    </form>
+  </div>
 
 </div>

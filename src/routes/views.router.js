@@ -3,6 +3,8 @@ import ProductManager from "../Dao/managers/ProductManager.js";
 import ProductMongoManager from "../Dao/managers/ProductMongoManager.js";
 import { ProductsModel } from "../Dao/models/product.model.js";
 import CartMongoManager from "../Dao/managers/CartMongoManager.js";
+import { authMiddleware } from "../middleware/auth.middleware.js";
+
 
 const router = Router ()
 
@@ -27,7 +29,7 @@ router.get ("/realtimeproducts", async (req,res) =>{
 })
 
 
-router.get("/products", async (req, res) => {
+router.get("/products", authMiddleware, async (req, res) => {
 
     try{
 
@@ -46,6 +48,8 @@ router.get("/products", async (req, res) => {
           hasNextPage,
         } = await ProductsModel.paginate({},options)
 
+        const user = req.session.user
+
         res.render("products", {
             products: docs,
             prevPage,
@@ -53,6 +57,7 @@ router.get("/products", async (req, res) => {
             page,
             hasPrevPage,
             hasNextPage,
+            user: user
         })
 
     } catch (error) {
@@ -70,5 +75,32 @@ router.get ("/carts/:cid", async (req,res) =>{
 
 
 })
+
+router.get ("/login", async (req,res)=>{
+    try {
+        
+        res.render("login")
+
+
+    } catch (error) {
+        
+        console.log("🚀 ~ file: views.router.js:78 ~ router.get ~ error:", error)
+
+    }
+})
+
+router.get ("/register", async (req,res)=>{
+    try {
+        
+        res.render("register")
+
+
+    } catch (error) {
+        
+        console.log("🚀 ~ file: views.router.js:78 ~ router.get ~ error:", error)
+
+    }
+})
+
 
 export default router

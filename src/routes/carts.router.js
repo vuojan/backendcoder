@@ -93,8 +93,10 @@ router.post ("/:cid/products/:id", async (req,res)=> {
         // const productInCart = await CartsModel.findOne()
 
         const productIndex = cart.products.findIndex(
-            (product) => product.id == id
+            (product) => product.id.equals(id)
         )
+        console.log(product.id)
+        console.log(id)
     
         if (productIndex === -1){
             cart.products.push({id:product._id, quantity: 1})

@@ -9,6 +9,11 @@ import __dirname from "./utils.js";
 import ProductManager from "./Dao/managers/ProductManager.js"
 import mongoDBService from "./services/mongoDb.service.js";
 import ProductMongoManager from "./Dao/managers/ProductMongoManager.js";
+import cookieParser from "cookie-parser";
+import MongoStore from "connect-mongo";
+import session from "express-session";
+import { mongoUrl } from "./services/mongoDb.service.js";
+import sessionRouter from "./routes/sessions.router.js"
 
 
 const app = express();
@@ -20,6 +25,17 @@ app.set("io",io);
 app.use (express.static (`${__dirname}/public`))
 app.use (express.json())
 app.use (express.urlencoded({extended:true}))
+app.use (cookieParser())
+app.use (session({
+  store: MongoStore.create({
+    mongoUrl: mongoUrl,
+    mongoOptions: {useNewUrlParser: true , useUnifiedTopology: true},
+    ttl: 60
+    }),
+  secret: "123456",
+  resave: false,
+  saveUninitialized: false
+}))
 
 app.engine ("handlebars", handlebars.engine())
 app.set("views", `${__dirname}/views`)
@@ -28,6 +44,7 @@ app.set("view engine", "handlebars")
 app.use("/api/products", productsRouter)
 app.use("/api/carts", cartsRouter)
 app.use("/", viewsRouter)
+app.use("/api/session", sessionRouter)
 
 const server = httpServer.listen (8084, async ()=> {
 
@@ -53,5 +70,6 @@ io.on("connection", async (socket) => {
      io.sockets.emit ( "products", products)
 
  })
+
 
 
