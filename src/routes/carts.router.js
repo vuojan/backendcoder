@@ -23,7 +23,9 @@ router.get ("/", async (req,res) => {
         res.send(carts)
     }
     catch(error){
-        console.log(error)
+        console.log("🚀 ~ file: carts.router.js:26 ~ router.get ~ error:", error)
+        
+        res.status(500).send({error: "Failed to load carts"})
     }
  }
  )
@@ -43,7 +45,9 @@ router.get ("/:cid", async (req,res) => {
         else res.sendStatus (404)
     
     } catch (error){
-    console.log(error)
+        console.log("🚀 ~ file: carts.router.js:47 ~ router.get ~ error:", error)
+
+        res.status(500).send({error: "That cart could not be found"})
     }
 })
 
@@ -60,8 +64,9 @@ router.post ("/", async (req,res) =>{
         res.status(201).json(addedCart)
 
     } catch (error){
+        console.log("🚀 ~ file: carts.router.js:65 ~ router.post ~ error:", error)
 
-        console.log(error)
+        res.status(500).send({error: "Failed to create cart"})
     }
 
 })
@@ -111,8 +116,9 @@ router.post ("/:cid/products/:id", async (req,res)=> {
         res.status(201).json(cart)
 
     } catch (error){
+        console.log("🚀 ~ file: carts.router.js:116 ~ router.post ~ error:", error)
 
-        console.log(error)
+        res.status(500).send({error: "Failed to add product to cart"})
 
     }
     
@@ -133,7 +139,9 @@ router.delete ("/:cid/products/:pid", async (req,res) =>{
     res.send({message:"producto borrado", product: ProductInCart})
 
     } catch (error) {
-        console.log (error)
+        console.log("🚀 ~ file: carts.router.js:139 ~ router.delete ~ error:", error)
+
+        res.status(500).send({error: "Failed to delete the wanted product"})
     }
 
 })
@@ -155,7 +163,9 @@ router.put ("/:cid/products/:pid", async (req,res) => {
         res.send(updateStock)
  
     } catch (error){
-        console.log(error)
+        console.log("🚀 ~ file: carts.router.js:162 ~ router.put ~ error:", error)
+
+        res.status(500).send({error: "Failed to update the stock of the cart"})
     }
 
 
@@ -173,7 +183,9 @@ router.delete("/:cid", async (req, res)=> {
         
     } catch (error) {
 
-        console.log(error)
+        console.log("🚀 ~ file: carts.router.js:179 ~ router.delete ~ error:", error)
+
+        res.status(500).send({error: "Failed to delete the products of the cart"})
         
     }
 })

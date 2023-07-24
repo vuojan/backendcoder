@@ -25,7 +25,19 @@ router.get ("/", async (req,res) =>{
 
 router.get ("/realtimeproducts", async (req,res) =>{
 
-    res.render ("realtimeproducts")
+    try {
+
+        res.render ("realtimeproducts")
+
+    } catch (error) {
+
+        console.log("🚀 ~ file: views.router.js:31 ~ router.get ~ error:", error)
+
+        res.status(500).send({error: "Failed to load products"})
+        
+    }
+
+    
 })
 
 
@@ -61,18 +73,30 @@ router.get("/products", authMiddleware, async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error)
+
+        console.log("🚀 ~ file: views.router.js:76 ~ router.get ~ error:", error)
+
+        res.status(500).send({error: "Failed to load products"})
     }
 })
 
 router.get ("/carts/:cid", async (req,res) =>{
 
-    const {cid} = req.params
+    try {
 
-    const requiredCart = await cartMongoManager.getCartById(cid)
+        const {cid} = req.params
 
-    res.render("cart", requiredCart)
+        const requiredCart = await cartMongoManager.getCartById(cid)
 
+        res.render("cart", requiredCart)
+
+    } catch (error) {
+
+        console.log("🚀 ~ file: views.router.js:94 ~ router.get ~ error:", error)
+
+        res.status(500).send({error: "Failed to load the cart"})
+        
+    }
 
 })
 
@@ -86,6 +110,8 @@ router.get ("/login", async (req,res)=>{
         
         console.log("🚀 ~ file: views.router.js:78 ~ router.get ~ error:", error)
 
+        res.status(500).send({error: "Failed to render"})
+
     }
 })
 
@@ -98,6 +124,8 @@ router.get ("/register", async (req,res)=>{
     } catch (error) {
         
         console.log("🚀 ~ file: views.router.js:78 ~ router.get ~ error:", error)
+
+        res.status(500).send({error: "Failed to render"})
 
     }
 })

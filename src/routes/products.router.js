@@ -59,9 +59,11 @@ router.get ("/", async (req,res) => {
         };
     
         return res.send(response);
+        
       } catch (error) {
-        console.log(error);
-        res.send("Error");
+        console.log("🚀 ~ file: products.router.js:64 ~ router.get ~ error:", error)
+
+        res.status(500).send({error: "Failed to load products"})
       }
 })
 
@@ -80,12 +82,16 @@ router.get ("/:id", async (req,res) => {
      else res.status(404).json({error: "Producto no encontrado"})
 
      } catch (error) {
-         console.log(error)
+         console.log("🚀 ~ file: products.router.js:84 ~ router.get ~ error:", error)
+
+         res.status(500).send({error: "Failed to load the selected product"})
      }
    
 })
 
 router.post ("/", async (req,res) =>{
+
+    try{
 
     const { title, 
             description, 
@@ -110,9 +116,19 @@ router.post ("/", async (req,res) =>{
 
     res.status(201).json(addedProduct)
 
+    } catch(error) {
+
+        console.log("🚀 ~ file: products.router.js:118 ~ router.post ~ error:", error)
+
+        res.status(500).send({error: "Failed to create the product"})
+
+    }
+
 })
 
 router.put ("/:id", async (req,res)=>{
+
+    try{
 
     const {id} = req.params
 
@@ -127,6 +143,14 @@ router.put ("/:id", async (req,res)=>{
     }
     else{
         return res.status(404).json({error: "producto inexistente"})
+    }
+
+    } catch (error){
+
+        console.log("🚀 ~ file: products.router.js:146 ~ router.put ~ error:", error)
+
+        res.status(500).send({error: "Failed to update product"})
+        
     }
     
 })
@@ -148,7 +172,10 @@ router.delete ("/:id", async (req,res)=>{
         }
 
     } catch (error){
-        console.log(error)
+        console.log("🚀 ~ file: products.router.js:175 ~ router.delete ~ error:", error)
+
+        res.status(500).send({error: "Failed to delete the product"})
+        
     }
 
 })

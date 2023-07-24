@@ -5,7 +5,7 @@ import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import viewsRouter from "./routes/views.router.js";
 import handlebars from "express-handlebars";
-import __dirname from "./utils.js";
+import __dirname from "./utils/utils.js";
 import ProductManager from "./Dao/managers/ProductManager.js"
 import mongoDBService from "./services/mongoDb.service.js";
 import ProductMongoManager from "./Dao/managers/ProductMongoManager.js";
@@ -14,6 +14,9 @@ import MongoStore from "connect-mongo";
 import session from "express-session";
 import { mongoUrl } from "./services/mongoDb.service.js";
 import sessionRouter from "./routes/sessions.router.js"
+import initializePassport from "./config/passport.config.js";
+import passport from "passport";
+import flash from "connect-flash"
 
 
 const app = express();
@@ -22,7 +25,8 @@ const io = new IOServer (httpServer)
 
 app.set("io",io);
 
-app.use (express.static (`${__dirname}/public`))
+
+app.use (express.static (`${__dirname}/../public`))
 app.use (express.json())
 app.use (express.urlencoded({extended:true}))
 app.use (cookieParser())
@@ -36,9 +40,13 @@ app.use (session({
   resave: false,
   saveUninitialized: false
 }))
+initializePassport ()
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(flash())
 
 app.engine ("handlebars", handlebars.engine())
-app.set("views", `${__dirname}/views`)
+app.set("views", `${__dirname}/../views`)
 app.set("view engine", "handlebars")
 
 app.use("/api/products", productsRouter)
