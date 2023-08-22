@@ -11,7 +11,7 @@ export const createHashPsw = async (val) => {
 
 export const validPassword = async (psw, encryptedPsw) =>{
 
-   const correctPassword = bcrypt.compareSync(psw,encryptedPsw)
+   const correctPassword = await bcrypt.compareSync(psw,encryptedPsw)
    
    return correctPassword
 

@@ -17,6 +17,7 @@ import sessionRouter from "./routes/sessions.router.js"
 import initializePassport from "./config/passport.config.js";
 import passport from "passport";
 import flash from "connect-flash"
+import config from "./config/config.js";
 
 
 const app = express();
@@ -36,7 +37,7 @@ app.use (session({
     mongoOptions: {useNewUrlParser: true , useUnifiedTopology: true},
     ttl: 60
     }),
-  secret: "123456",
+  secret: config.MONGO_SECRET,
   resave: false,
   saveUninitialized: false
 }))
@@ -54,7 +55,7 @@ app.use("/api/carts", cartsRouter)
 app.use("/", viewsRouter)
 app.use("/api/session", sessionRouter)
 
-const server = httpServer.listen (8084, async ()=> {
+const server = httpServer.listen (config.PORT, async ()=> {
 
   await mongoDBService();
 
@@ -78,6 +79,8 @@ io.on("connection", async (socket) => {
      io.sockets.emit ( "products", products)
 
  })
+
+ console.log(config.PORT)
 
 
 

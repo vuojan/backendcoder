@@ -3,9 +3,10 @@ import local from "passport-local"
 import { UsersModels } from "../Dao/models/user.model.js";
 import { validPassword, createHashPsw } from "../utils/encrypt.js";
 import GithubStrategy from "passport-github2"
+import config from "./config.js";
 
-const GITHUB_CLIENT_ID = "bd67c923c583d46085ed"
-const GITHUB_CLIENT_SECRET = "6a8e7cc078d140d773065a4b5c9e18fc17bedbba"
+const GITHUB_CLIENT_ID = config.GITHUB_CLIENT_ID
+const GITHUB_CLIENT_SECRET = config.GITHUB_CLIENT_SECRET
 
 const LocalStrategy = local.Strategy
 

@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import config from "../config/config.js";
 
-const DB_HOST = "127.0.0.1"
-const DB_PORT = "27017"
-const DB_NAME = "Ecommerce"
+const DB_HOST = config.DB_HOST
+const DB_PORT = config.DB_PORT
+const DB_NAME = config.DB_NAME
 
 export const mongoUrl = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`
 
