@@ -1,5 +1,8 @@
 import ProductMongoManager from "../Dao/managers/ProductMongoManager.js";
 import CartMongoManager from "../Dao/managers/CartMongoManager.js";
+import { TicketModel } from "../Dao/models/ticket.model.js";
+import { updatedProduct } from "./products.controller.js";
+
 
 const cartMongoManager = new CartMongoManager ()
 const productMongoManager = new ProductMongoManager ()
@@ -9,6 +12,9 @@ export const getCarts = async (req,res) => {
     try{
         // const carts = await manager.getCarts()
         const carts = await cartMongoManager.getCarts()
+
+        console.log(req.session.user)
+        
         res.send(carts)
     }
     catch(error){
@@ -177,4 +183,58 @@ export const deleteAllProducts = async (req, res)=> {
         res.status(500).send({error: "Failed to delete the products of the cart"})
         
     }
+}
+
+export const purcharseProducts = async (req,res)=>{
+    
+     try{
+
+     const {cid} = req.params
+
+     const cart = await cartMongoManager.getCartById(cid)
+
+     if (!cart) return res.send("Error, cart not found")
+
+     cart.products.forEach( async (productInCart) => {
+
+         const product = await productMongoManager.getProductById(productInCart.id)
+
+         if (!product) return res.send ("Error, product not found")
+
+         if (productInCart.quantity > product.stock) return res.send("Error, insufficient stock")
+
+         else { 
+
+             product.stock -= productInCart.quantity
+
+             const updateProducts = await productMongoManager.updateProduct(product._id,product.stock)
+
+             console.log(product._id)
+
+             console.log(product.stock)
+
+             return updateProducts
+         }
+     })
+
+     const email = req.session
+
+     console.log(email)
+
+     const ticket = new TicketModel({
+         amount: cart.products.reduce((total, cartProduct) => total + cartProduct.quantity, 0),
+         purcharser: "lalo"
+     })
+
+     const newTicket = await TicketModel.create(ticket)
+
+     res.send(newTicket)
+
+   
+     } catch(error) {
+         console.log("🚀 ~ file: carts.controller.js:193 ~ purcharseProducts ~ error:", error)
+
+         res.status(500).send({error: "Failed to proced with the purcharse"})
+     }
+
 }

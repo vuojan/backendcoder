@@ -52,6 +52,8 @@ export const getProducts = async (req,res) => {
              ? `http://localhost:${config.PORT}/api/products?limit=${options.limit}&page=${nextPage}`
              : null,
         };
+
+        console.log(req.session.user)
     
         return res.send(response);
         

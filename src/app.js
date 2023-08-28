@@ -35,7 +35,7 @@ app.use (session({
   store: MongoStore.create({
     mongoUrl: mongoUrl,
     mongoOptions: {useNewUrlParser: true , useUnifiedTopology: true},
-    ttl: 60
+    ttl: 999999999
     }),
   secret: config.MONGO_SECRET,
   resave: false,
@@ -50,10 +50,11 @@ app.engine ("handlebars", handlebars.engine())
 app.set("views", `${__dirname}/../views`)
 app.set("view engine", "handlebars")
 
+app.use("/api/session", sessionRouter)
 app.use("/api/products", productsRouter)
 app.use("/api/carts", cartsRouter)
 app.use("/", viewsRouter)
-app.use("/api/session", sessionRouter)
+
 
 const server = httpServer.listen (config.PORT, async ()=> {
 

@@ -4,6 +4,7 @@ import ProductMongoManager from "../Dao/managers/ProductMongoManager.js";
 import { ProductsModel } from "../Dao/models/product.model.js";
 import CartMongoManager from "../Dao/managers/CartMongoManager.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
+import { CartsModel } from "../Dao/models/cart.model.js";
 
 
 const router = Router ()
@@ -87,6 +88,7 @@ router.get ("/carts/:cid", async (req,res) =>{
         const {cid} = req.params
 
         const requiredCart = await cartMongoManager.getCartById(cid)
+        console.log(requiredCart.products)
 
         res.render("cart", requiredCart)
 
