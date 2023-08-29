@@ -26,7 +26,7 @@ router.post ("/login", passport.authenticate ("login",{
         email: req.user.email,
         age: req.user.age,
         password:"",
-        rol : req.user.rol
+        rol : req.user.rol,
     }
 
     console.log(req.session.user)

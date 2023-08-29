@@ -63,6 +63,19 @@ export default class CartMongoManager{
         }
     }
 
+    deleteManyProducts = async (cid,products) =>{
+
+        try {
+            
+            const deletedProductsInCart = await this.cartsmodel.updateOne({_id: cid}, { $pull: { products: { id: {$in: products} } } } ).lean() 
+
+            return deletedProductsInCart
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     updateStockInCarts = async (cid, pid, newStock) => {
         
         try{

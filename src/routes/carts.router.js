@@ -8,7 +8,7 @@ import { getCarts, getCartById, addCart, updateStockInCarts, deleteAllProducts, 
 const router = Router ()
 
 
-router.get ("/", getCarts )
+router.get ("/", getCarts)
 
 router.get ("/:cid", getCartById )
 
@@ -22,8 +22,6 @@ router.put ("/:cid/products/:pid", updateStockInCarts)
 
 router.delete("/:cid", deleteAllProducts)
 
-router.put ("/:cid/purcharse", purcharseProducts, async (req,res)=>{
-    console.log(req.user.session)
-})
+router.post ("/:cid/purcharse", purcharseProducts)
 
 export default router

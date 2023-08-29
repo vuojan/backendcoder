@@ -12,8 +12,6 @@ export const getCarts = async (req,res) => {
     try{
         // const carts = await manager.getCarts()
         const carts = await cartMongoManager.getCarts()
-
-        console.log(req.session.user)
         
         res.send(carts)
     }
@@ -95,7 +93,7 @@ export const addProductIntoCart = async (req,res)=> {
         const productIndex = cart.products.findIndex(
             (product) => product.id.equals(id)
         )
-        console.log(product.id)
+        
         console.log(id)
     
         if (productIndex === -1){
@@ -193,15 +191,22 @@ export const purcharseProducts = async (req,res)=>{
 
      const cart = await cartMongoManager.getCartById(cid)
 
+     const purcharsedProducts = []
+     const failedToPurcharseProductos = []
+
      if (!cart) return res.send("Error, cart not found")
 
-     cart.products.forEach( async (productInCart) => {
+     await Promise.all (cart.products.map ( async (productInCart) => {
 
          const product = await productMongoManager.getProductById(productInCart.id)
 
          if (!product) return res.send ("Error, product not found")
 
-         if (productInCart.quantity > product.stock) return res.send("Error, insufficient stock")
+         if (productInCart.quantity > product.stock){
+
+            failedToPurcharseProductos.push(productInCart)
+
+         } 
 
          else { 
 
@@ -209,26 +214,34 @@ export const purcharseProducts = async (req,res)=>{
 
              const updateProducts = await productMongoManager.updateProduct(product._id,product.stock)
 
+             purcharsedProducts.push(productInCart.id)
+
              console.log(product._id)
 
              console.log(product.stock)
 
+            //console.log(purcharsedProducts)
+
              return updateProducts
          }
-     })
+     }))
 
-     const email = req.session
+     const email = req.session.user
 
      console.log(email)
 
      const ticket = new TicketModel({
          amount: cart.products.reduce((total, cartProduct) => total + cartProduct.quantity, 0),
-         purcharser: "lalo"
+         purcharser: req.session.user.email
      })
 
      const newTicket = await TicketModel.create(ticket)
 
-     res.send(newTicket)
+     console.log(purcharsedProducts)
+
+     await cartMongoManager.deleteManyProducts(cid,purcharsedProducts)
+
+     res.send({OrderTicket : newTicket , UnableToBuyProducts : failedToPurcharseProductos})
 
    
      } catch(error) {

@@ -63,6 +63,8 @@ router.get("/products", authMiddleware, async (req, res) => {
 
         const user = req.session.user
 
+        console.log(user)
+
         res.render("products", {
             products: docs,
             prevPage,
@@ -89,6 +91,10 @@ router.get ("/carts/:cid", async (req,res) =>{
 
         const requiredCart = await cartMongoManager.getCartById(cid)
         console.log(requiredCart.products)
+
+        const user = req.session.user
+
+        console.log(user)
 
         res.render("cart", requiredCart)
 
