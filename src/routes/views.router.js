@@ -7,6 +7,7 @@ import { authMiddleware } from "../middleware/auth.middleware.js";
 import { CartsModel } from "../Dao/models/cart.model.js";
 
 
+
 const router = Router ()
 
 const manager = new ProductManager();
@@ -89,12 +90,8 @@ router.get ("/carts/:cid", async (req,res) =>{
 
         const {cid} = req.params
 
-        const requiredCart = await cartMongoManager.getCartById(cid)
+        const requiredCart = await CartsModel.findById(cid).populate("products.id").lean()
         console.log(requiredCart.products)
-
-        const user = req.session.user
-
-        console.log(user)
 
         res.render("cart", requiredCart)
 

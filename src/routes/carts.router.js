@@ -1,7 +1,7 @@
 
 import { Router } from "express";
-
 import { getCarts, getCartById, addCart, updateStockInCarts, deleteAllProducts, deleteProductInCart, addProductIntoCart, purcharseProducts } from "../controllers/carts.controller.js";
+import { roleAuthorize } from "../middleware/role.middleware.js";
 
 
 
@@ -14,7 +14,7 @@ router.get ("/:cid", getCartById )
 
 router.post ("/", addCart)
 
-router.post ("/:cid/products/:id", addProductIntoCart )
+router.post ("/:cid/products/:id", roleAuthorize("usuario"), addProductIntoCart )
 
 router.delete ("/:cid/products/:pid", deleteProductInCart)
 

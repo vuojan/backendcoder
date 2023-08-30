@@ -2,8 +2,32 @@ import { Router } from "express";
 import { UsersModels } from "../Dao/models/user.model.js";
 import { createHashPsw , validPassword } from "../utils/encrypt.js";
 import passport from "passport";
+import { authMiddleware } from "../middleware/auth.middleware.js";
+import UserDto from "../dto/currentuser.dto.js";
+import { roleAuthorize } from "../middleware/role.middleware.js";
+
 
 const router = Router ()
+
+router.get("/current", authMiddleware, roleAuthorize(["admin", "usuario"]), async (req,res)=> {
+
+    try {
+
+        const userDto = new UserDto (req.session.user)
+
+        console.log(req.session.user)
+
+        res.send(userDto)
+        
+    } catch (error) {
+
+        console.log("🚀 ~ file: sessions.router.js:14 ~ router.get ~ error:", error)
+        
+        res.status(500).send({error: "Failed to get user information"})
+
+    }
+
+})
 
 router.post ("/login", passport.authenticate ("login",{
     failureRedirect: "/failLogin"
@@ -13,11 +37,11 @@ router.post ("/login", passport.authenticate ("login",{
 
     if (req.user.email === 'adminCoder@coder.com' && req.user.password === 'adminCod3r123') {
        
-        req.user.rol = 'admin';
+        req.user.role = 'admin';
      
     } else {
 
-        req.user.rol = 'usuario';
+        req.user.role = 'usuario';
       }
 
     req.session.user = {
@@ -26,7 +50,7 @@ router.post ("/login", passport.authenticate ("login",{
         email: req.user.email,
         age: req.user.age,
         password:"",
-        rol : req.user.rol,
+        role : req.user.role,
     }
 
     console.log(req.session.user)

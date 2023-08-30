@@ -20,9 +20,8 @@ export const getCarts = async (req,res) => {
         
         res.status(500).send({error: "Failed to load carts"})
     }
- }
+}
  
-
 export const getCartById = async (req,res) => {
 
     try{
@@ -225,10 +224,6 @@ export const purcharseProducts = async (req,res)=>{
              return updateProducts
          }
      }))
-
-     const email = req.session.user
-
-     console.log(email)
 
      const ticket = new TicketModel({
          amount: cart.products.reduce((total, cartProduct) => total + cartProduct.quantity, 0),
