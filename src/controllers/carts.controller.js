@@ -2,23 +2,28 @@ import ProductMongoManager from "../Dao/managers/ProductMongoManager.js";
 import CartMongoManager from "../Dao/managers/CartMongoManager.js";
 import { TicketModel } from "../Dao/models/ticket.model.js";
 import { updatedProduct } from "./products.controller.js";
+import { HttpStatusCodes, errors } from "../middleware/errorHandler.middleware.js";
 
 
 const cartMongoManager = new CartMongoManager ()
 const productMongoManager = new ProductMongoManager ()
+const httpStatus = new HttpStatusCodes ()
 
 export const getCarts = async (req,res) => {
 
     try{
         // const carts = await manager.getCarts()
         const carts = await cartMongoManager.getCarts()
+
+        if (!carts) return httpStatus.NOT_FOUND(res,`${errors.INVALID_RESOURCE}`)
         
-        res.send(carts)
+        return httpStatus.OK(res, "Carts loaded", carts)
+        
     }
     catch(error){
         console.log("🚀 ~ file: carts.router.js:26 ~ router.get ~ error:", error)
         
-        res.status(500).send({error: "Failed to load carts"})
+        return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.LOADING_ERROR}`, error)
     }
 }
  
@@ -33,13 +38,15 @@ export const getCartById = async (req,res) => {
 
         const cart = await cartMongoManager.getCartById(cid)
 
-        if (cart) res.send(cart)
-        else res.sendStatus (404)
+        if (!cart) return httpStatus.NOT_FOUND(res, `${errors.INVALID_RESOURCE}`)
+
+        return httpStatus.OK(res, "Cart found", cart)
     
     } catch (error){
+
         console.log("🚀 ~ file: carts.router.js:47 ~ router.get ~ error:", error)
 
-        res.status(500).send({error: "That cart could not be found"})
+        return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.LOADING_ERROR}`,error)
     }
 }
 
@@ -53,12 +60,13 @@ export const addCart = async (req,res) =>{
 
         const addedCart = await cartMongoManager.addCart(cart)
 
-        res.status(201).json(addedCart)
+        return httpStatus.CREATED(res, "Cart created", addedCart)
 
     } catch (error){
+
         console.log("🚀 ~ file: carts.router.js:65 ~ router.post ~ error:", error)
 
-        res.status(500).send({error: "Failed to create cart"})
+        return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.CREATION_ERROR}`, error)
     }
 
 }
@@ -76,7 +84,9 @@ export const addProductIntoCart = async (req,res)=> {
         const cart = await cartMongoManager.getCartById(cid)
 
         if (!cart) {
-            return res.send("Error")
+
+            return httpStatus.NOT_FOUND(res, `${errors.INVALID_RESOURCE}`)
+            
         }
 
         // const product = await productManager.getProductById(id)
@@ -84,7 +94,9 @@ export const addProductIntoCart = async (req,res)=> {
         const product = await productMongoManager.getProductById(id)
 
         if (!product) {
-            return res.send("Error")
+
+            return httpStatus.NOT_FOUND(res, `${errors.INVALID_RESOURCE}`)
+
         }
 
         // const productInCart = await CartsModel.findOne()
@@ -105,15 +117,16 @@ export const addProductIntoCart = async (req,res)=> {
 
         await cartMongoManager.updateCartById(cid, cart.products)
 
-        res.status(201).json(cart)
+        return httpStatus.OK(res, "Product added", cart)
 
     } catch (error){
         console.log("🚀 ~ file: carts.router.js:116 ~ router.post ~ error:", error)
 
-        res.status(500).send({error: "Failed to add product to cart"})
+        return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.ADD_ERROR}`, error )
 
     }
     
+
 
 }
 
@@ -121,19 +134,22 @@ export const deleteProductInCart = async (req,res) =>{
 
     try{
 
-    const { cid, pid } = req.params
+        const { cid, pid } = req.params
 
-    console.log(cid)
-    console.log(pid)
+        console.log(cid)
+        console.log(pid)
 
-    const ProductInCart = await cartMongoManager.deleteProductInCart (cid,pid)
+        const ProductInCart = await cartMongoManager.deleteProductInCart (cid,pid)
 
-    res.send({message:"producto borrado", product: ProductInCart})
+        if(!ProductInCart) return httpStatus.NOT_FOUND(res,`${errors.INVALID_RESOURCE}`)
+
+        return httpStatus.OK(res,"Product deleted", ProductInCart)
 
     } catch (error) {
+
         console.log("🚀 ~ file: carts.router.js:139 ~ router.delete ~ error:", error)
 
-        res.status(500).send({error: "Failed to delete the wanted product"})
+        return httpStatus.INTERNAL_SERVER_ERROR(res,`${errors.DELETION_ERROR}`, error)
     }
 
 }
@@ -152,12 +168,15 @@ export const updateStockInCarts = async (req,res) => {
 
         const updateStock = await cartMongoManager.updateStockInCarts(cid,pid,newStock)
 
-        res.send(updateStock)
+        if(!updateStock) return httpStatus.NOT_FOUND(res,`${errors.INVALID_RESOURCE}`)
+
+        return httpStatus.OK(res,"Product in cart updated", updateStock)
  
     } catch (error){
+
         console.log("🚀 ~ file: carts.router.js:162 ~ router.put ~ error:", error)
 
-        res.status(500).send({error: "Failed to update the stock of the cart"})
+        return httpStatus.INTERNAL_SERVER_ERROR(res,`${errors.UPDATE_ERROR}`,error)
     }
 
 
@@ -171,15 +190,17 @@ export const deleteAllProducts = async (req, res)=> {
 
         const deletedProduct = await cartMongoManager.deleteAllProducts(cid)
 
-        res.send(deletedProduct)
+        if(!deletedProduct) return httpStatus.NOT_FOUND(res,`${errors.INVALID_RESOURCE}`)
+
+        return httpStatus.OK(res,"Products deleted succesfuly", deletedProduct)
         
     } catch (error) {
 
         console.log("🚀 ~ file: carts.router.js:179 ~ router.delete ~ error:", error)
 
-        res.status(500).send({error: "Failed to delete the products of the cart"})
+        return httpStatus.INTERNAL_SERVER_ERROR(res,`${errors.DELETION_ERROR}`,error)
         
-    }
+    } 
 }
 
 export const purcharseProducts = async (req,res)=>{
@@ -236,7 +257,7 @@ export const purcharseProducts = async (req,res)=>{
 
      await cartMongoManager.deleteManyProducts(cid,purcharsedProducts)
 
-     res.send({OrderTicket : newTicket , UnableToBuyProducts : failedToPurcharseProductos})
+    res.send({OrderTicket : newTicket , UnableToBuyProducts : failedToPurcharseProductos})
 
    
      } catch(error) {

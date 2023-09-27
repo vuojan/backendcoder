@@ -9,7 +9,7 @@
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "start:dev": "cross-env NODE_ENV=development nodemon src/app.js",
-    "start:prod": "cross-env NODE_ENV=production nodemon src/app.js"  
+    "start:prod": "cross-env NODE_ENV=production nodemon src/app.js"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +25,8 @@
     "express": "^4.18.2",
     "express-handlebars": "^7.0.7",
     "express-session": "^1.17.3",
+    "http-status-code": "^2.1.0",
+    "http-status-codes": "^2.3.0",
     "mongoose": "^7.3.2",
     "mongoose-paginate-v2": "^1.7.1",
     "nodemon": "^2.0.22",
@@ -32,5 +34,9 @@
     "passport-github2": "^0.1.12",
     "passport-local": "^1.0.0",
     "socket.io": "^4.6.1"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.1.0",
+    "faker": "^6.6.6"
   }
 }
