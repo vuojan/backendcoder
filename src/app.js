@@ -18,6 +18,8 @@ import initializePassport from "./config/passport.config.js";
 import passport from "passport";
 import flash from "connect-flash"
 import config from "./config/config.js";
+import loggerRouter from "./routes/logger.router.js"
+import {useLogger} from "./utils/loggerConfig.js"
 
 
 const app = express();
@@ -45,6 +47,7 @@ initializePassport ()
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
+app.use(useLogger)
 
 app.engine ("handlebars", handlebars.engine())
 app.set("views", `${__dirname}/../views`)
@@ -54,13 +57,14 @@ app.use("/api/session", sessionRouter)
 app.use("/api/products", productsRouter)
 app.use("/api/carts", cartsRouter)
 app.use("/", viewsRouter)
+app.use("/loggerTest", loggerRouter)
 
 
 const server = httpServer.listen (config.PORT, async ()=> {
 
   await mongoDBService();
 
-  console.log("listening on 8084")
+  console.log(`listening on ${config.PORT}`)
 
 })
 

@@ -1,0 +1,5 @@
+Tue Oct 03 2023 01:13:39 GMT-0300 (hora estándar de Argentina) [[35mfatal[39m] : [35mprobando logger[39m
+Tue Oct 03 2023 01:32:29 GMT-0300 (hora estándar de Argentina) [[35mfatal[39m] : [35m{ Method: 'GET', URL: '/fatal', Message: 'Logger fatal' }[39m
+Tue Oct 03 2023 01:38:13 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Method: 'GET', URL: '/error', Message: 'Error' }[39m
+Tue Oct 03 2023 01:38:49 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Method: 'GET', URL: '/error', Message: 'Error in API' }[39m
+Tue Oct 03 2023 01:39:29 GMT-0300 (hora estándar de Argentina) [[35mfatal[39m] : [35m{ Method: 'GET', URL: '/fatal', Message: 'Fatal Error in API' }[39m
