@@ -21,7 +21,8 @@ export const getCarts = async (req,res) => {
         
     }
     catch(error){
-        console.log("🚀 ~ file: carts.router.js:26 ~ router.get ~ error:", error)
+
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
         
         return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.LOADING_ERROR}`, error)
     }
@@ -44,7 +45,7 @@ export const getCartById = async (req,res) => {
     
     } catch (error){
 
-        console.log("🚀 ~ file: carts.router.js:47 ~ router.get ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.LOADING_ERROR}`,error)
     }
@@ -64,7 +65,7 @@ export const addCart = async (req,res) =>{
 
     } catch (error){
 
-        console.log("🚀 ~ file: carts.router.js:65 ~ router.post ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.CREATION_ERROR}`, error)
     }
@@ -104,8 +105,8 @@ export const addProductIntoCart = async (req,res)=> {
         const productIndex = cart.products.findIndex(
             (product) => product.id.equals(id)
         )
-        
-        console.log(id)
+
+        req.logger.info({Data: req.logMessage, Message: id})
     
         if (productIndex === -1){
             cart.products.push({id:product._id, quantity: 1})
@@ -120,7 +121,8 @@ export const addProductIntoCart = async (req,res)=> {
         return httpStatus.OK(res, "Product added", cart)
 
     } catch (error){
-        console.log("🚀 ~ file: carts.router.js:116 ~ router.post ~ error:", error)
+
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.ADD_ERROR}`, error )
 
@@ -136,8 +138,9 @@ export const deleteProductInCart = async (req,res) =>{
 
         const { cid, pid } = req.params
 
-        console.log(cid)
-        console.log(pid)
+        req.logger.info({Data: req.logMessage, Message: cid})
+
+        req.logger.info({Data: req.logMessage, Message: pid})
 
         const ProductInCart = await cartMongoManager.deleteProductInCart (cid,pid)
 
@@ -147,7 +150,7 @@ export const deleteProductInCart = async (req,res) =>{
 
     } catch (error) {
 
-        console.log("🚀 ~ file: carts.router.js:139 ~ router.delete ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         return httpStatus.INTERNAL_SERVER_ERROR(res,`${errors.DELETION_ERROR}`, error)
     }
@@ -162,9 +165,9 @@ export const updateStockInCarts = async (req,res) => {
 
         const {newStock} = req.body  
 
-        console.log(cid)
-        console.log(pid)
-        console.log(newStock)
+        req.logger.info({Data: req.logMessage, Message: cid})
+        req.logger.info({Data: req.logMessage, Message: pid})
+        req.logger.info({Data: req.logMessage, Message: newStock})
 
         const updateStock = await cartMongoManager.updateStockInCarts(cid,pid,newStock)
 
@@ -174,7 +177,7 @@ export const updateStockInCarts = async (req,res) => {
  
     } catch (error){
 
-        console.log("🚀 ~ file: carts.router.js:162 ~ router.put ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         return httpStatus.INTERNAL_SERVER_ERROR(res,`${errors.UPDATE_ERROR}`,error)
     }
@@ -196,7 +199,7 @@ export const deleteAllProducts = async (req, res)=> {
         
     } catch (error) {
 
-        console.log("🚀 ~ file: carts.router.js:179 ~ router.delete ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         return httpStatus.INTERNAL_SERVER_ERROR(res,`${errors.DELETION_ERROR}`,error)
         

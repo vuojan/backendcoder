@@ -57,15 +57,13 @@ export const getProducts = async (req,res) => {
              : null,
         };
 
-        console.log(req.session.user)
-
         if(!response) return httpStatus.NOT_FOUND(res,`${errors.INVALID_RESOURCE}`)
     
         return httpStatus.OK (res,"Products succesfully loaded", response)
         
       } catch (error) {
 
-        console.log("🚀 ~ file: products.router.js:64 ~ router.get ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         return httpStatus.INTERNAL_SERVER_ERROR(res,`${errors.LOADING_ERROR}`,error)
 
@@ -89,9 +87,9 @@ export const getProductById = async (req,res) => {
 
      } catch (error) {
 
-         console.log("🚀 ~ file: products.router.js:84 ~ router.get ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
-         return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.LOADING_ERROR}`, error)
+        return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.LOADING_ERROR}`, error)
      }
    
 }
@@ -127,7 +125,7 @@ export const addProduct = async (req,res) =>{
 
     } catch(error) {
 
-        console.log("🚀 ~ file: products.router.js:118 ~ router.post ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.CREATION_ERROR}`, error)
 
@@ -158,7 +156,7 @@ export const updatedProduct = async (req,res)=>{
 
     } catch (error){
 
-        console.log("🚀 ~ file: products.router.js:146 ~ router.put ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.UPDATE_ERROR}`, error)
         
@@ -187,7 +185,7 @@ export const deleteProduct = async (req,res)=>{
 
     } catch (error){
 
-        console.log("🚀 ~ file: products.router.js:175 ~ router.delete ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.UPDATE_ERROR}`, error)
         
@@ -213,7 +211,7 @@ export const generateProducts = async (req,res) =>{
         
     } catch (error) {
 
-        console.log("🚀 ~ file: products.controller.js:185 ~ mockProducts ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         return httpStatus.INTERNAL_SERVER_ERROR(res, `${errors.MOCKTEST_ERROR}`, error)
         

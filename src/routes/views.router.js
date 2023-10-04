@@ -33,7 +33,7 @@ router.get ("/realtimeproducts", async (req,res) =>{
 
     } catch (error) {
 
-        console.log("🚀 ~ file: views.router.js:31 ~ router.get ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         res.status(500).send({error: "Failed to load products"})
         
@@ -64,8 +64,6 @@ router.get("/products", authMiddleware, async (req, res) => {
 
         const user = req.session.user
 
-        console.log(user)
-
         res.render("products", {
             products: docs,
             prevPage,
@@ -78,7 +76,7 @@ router.get("/products", authMiddleware, async (req, res) => {
 
     } catch (error) {
 
-        console.log("🚀 ~ file: views.router.js:76 ~ router.get ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         res.status(500).send({error: "Failed to load products"})
     }
@@ -91,13 +89,14 @@ router.get ("/carts/:cid", async (req,res) =>{
         const {cid} = req.params
 
         const requiredCart = await CartsModel.findById(cid).populate("products.id").lean()
-        console.log(requiredCart.products)
+
+        req.logger.info({Data: req.logMessage, Message: requiredCart.products})
 
         res.render("cart", requiredCart)
 
     } catch (error) {
 
-        console.log("🚀 ~ file: views.router.js:94 ~ router.get ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         res.status(500).send({error: "Failed to load the cart"})
         
@@ -113,7 +112,7 @@ router.get ("/login", async (req,res)=>{
 
     } catch (error) {
         
-        console.log("🚀 ~ file: views.router.js:78 ~ router.get ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         res.status(500).send({error: "Failed to render"})
 
@@ -128,7 +127,7 @@ router.get ("/register", async (req,res)=>{
 
     } catch (error) {
         
-        console.log("🚀 ~ file: views.router.js:78 ~ router.get ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         res.status(500).send({error: "Failed to render"})
 

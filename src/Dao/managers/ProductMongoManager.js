@@ -7,10 +7,13 @@ export default class ProductMongoManager {
 
     getProducts = async () => {
         try{
+
             const products = await this.productsModel.find().lean()
             return products
+
         } catch (error){
-            console.log(error)
+
+            logger.error({Data: "file: ProductMongoManager.js:13 ~ ProductMongoManager ~ getProducts" ,Message:`${error.message}`})
         }
     }
 
@@ -19,6 +22,7 @@ export default class ProductMongoManager {
              const reapeatedCode = await this.productsModel.findOne({code: product.code})
 
              if (reapeatedCode) {
+                
                  console.log("That code already exist")
                  return null
              }
@@ -28,7 +32,8 @@ export default class ProductMongoManager {
             return addedProduct;
 
         } catch(error){
-            console.log(error)
+            
+            logger.error({Data: "file: ProductMongoManager.js:35 ~ ProductMongoManager ~ addProduct" ,Message:`${error.message}`})
         }
     }
 
@@ -39,7 +44,8 @@ export default class ProductMongoManager {
             return product
 
         } catch(error){
-            console.log(error)
+        
+            logger.error({Data: "file: ProductMongoManager.js:47 ~ ProductMongoManager ~ getProductById" ,Message:`${error.message}`})
         }
     }
 
@@ -49,8 +55,9 @@ export default class ProductMongoManager {
 
             return updatedProduct
 
-        } catch {
-            console.log(error)
+        } catch(error) {
+
+            logger.error({Data: "file: ProductMongoManager.js:59 ~ ProductMongoManager ~ updateProduct" ,Message:`${error.message}`})
         }
     }
 
@@ -61,7 +68,8 @@ export default class ProductMongoManager {
             return deletedProduct
 
         } catch(error) {
-            console.log(error)
+            
+            logger.error({Data: "file: ProductMongoManager.js:71 ~ ProductMongoManager ~ deleteProduct" ,Message:`${error.message}`})
         }
     }
 }

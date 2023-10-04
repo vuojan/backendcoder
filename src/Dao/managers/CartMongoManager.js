@@ -1,4 +1,5 @@
 import { CartsModel } from "../models/cart.model.js";
+import { logger } from "../../utils/loggerConfig.js";
 
 export default class CartMongoManager{
     constructor(){
@@ -12,7 +13,8 @@ export default class CartMongoManager{
             return carts
 
         } catch(error){
-            console.log(error)
+
+            logger.error({Data: "file: CartMongoManager.js:16 ~ CartMongoManager ~ getCarts" ,Message:`${error.message}`})
         }
     }
 
@@ -23,7 +25,8 @@ export default class CartMongoManager{
             return addedCart
 
         } catch (error){
-            console.log(error)
+            
+            logger.error({Data: "file: CartMongoManager.js:28 ~ CartMongoManager ~ addCart" ,Message:`${error.message}`})
         }
     }
 
@@ -34,7 +37,8 @@ export default class CartMongoManager{
             return cart
 
         } catch (error){
-            console.log(error)
+    
+            logger.error({Data: "file: CartMongoManager.js:40 ~ CartMongoManager ~ getCartById" ,Message:`${error.message}`})
         }
     }
 
@@ -45,7 +49,8 @@ export default class CartMongoManager{
             return updatedCart
 
         }catch (error){
-            console.log(error)
+            
+            logger.error({Data: "file: CartMongoManager.js:52 ~ CartMongoManager ~ updateCartById" ,Message:`${error.message}`})
         }
 
     }
@@ -59,7 +64,8 @@ export default class CartMongoManager{
             return deletedProductInCart
 
         } catch (error) {
-            console.log(error)
+            
+            logger.error({Data: "file: CartMongoManager.js:67 ~ CartMongoManager ~ deleteProductInCart" ,Message:`${error.message}`})
         }
     }
 
@@ -72,7 +78,8 @@ export default class CartMongoManager{
             return deletedProductsInCart
 
         } catch (error) {
-            console.log(error)
+            
+            logger.error({Data: "file: CartMongoManager.js:81 ~ CartMongoManager ~ deleteManyProducts" ,Message:`${error.message}`})
         }
     }
 
@@ -85,7 +92,8 @@ export default class CartMongoManager{
             return updatedStock
 
         } catch (error) {
-            console.log(error)
+            
+            logger.error({Data: "file: CartMongoManager.js:95 ~ CartMongoManager ~ updateStockInCarts" ,Message:`${error.message}`})
         }
     }
 
@@ -98,8 +106,8 @@ export default class CartMongoManager{
             return deletedProducts
 
         } catch(error){
-
-            console.log(error)
+            
+            logger.error({Data: "file: CartMongoManager.js:109 ~ CartMongoManager ~ deleteAllProducts" ,Message:`${error.message}`})
         }
     }
 

@@ -15,13 +15,13 @@ router.get("/current", authMiddleware, roleAuthorize(["admin", "usuario"]), asyn
 
         const userDto = new UserDto (req.session.user)
 
-        console.log(req.session.user)
+        req.logger.info({Data: req.logMessage, Message: req.session.user})
 
         res.send(userDto)
         
     } catch (error) {
 
-        console.log("🚀 ~ file: sessions.router.js:14 ~ router.get ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
         
         res.status(500).send({error: "Failed to get user information"})
 
@@ -30,36 +30,38 @@ router.get("/current", authMiddleware, roleAuthorize(["admin", "usuario"]), asyn
 })
 
 router.post ("/login", passport.authenticate ("login",{
-    failureRedirect: "/failLogin"
+    failureRedirect: "/api/session/failLogin"
 }), async (req,res)=>{
 
     try{
 
-    if (req.user.email === 'adminCoder@coder.com' && req.user.password === 'adminCod3r123') {
+        if (req.user.email === 'adminCoder@coder.com' && req.user.password === 'adminCod3r123') {
        
-        req.user.role = 'admin';
+            req.user.role = 'admin';
      
-    } else {
+        } else {
 
-        req.user.role = 'usuario';
+            req.user.role = 'usuario';
       }
 
-    req.session.user = {
-        first_name: req.user.first_name,
-        last_name: req.user.last_name,
-        email: req.user.email,
-        age: req.user.age,
-        password:"",
-        role : req.user.role,
+        req.session.user = {
+            first_name: req.user.first_name,
+            last_name: req.user.last_name,
+            email: req.user.email,
+            age: req.user.age,
+            password:"",
+            role : req.user.role,
     }
 
-    console.log(req.session.user)
+        req.logger.info({Data: req.logMessage, Message: req.session.user})
+
+    
 
     return res.redirect("/products")
 
     } catch(error) {
 
-        console.log("🚀 ~ file: sessions.router.js:36 ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         res.status(500).send({error: "Failed to login"})
 
@@ -73,7 +75,7 @@ router.get ("/failLogin", async (req,res)=>{
 })
 
 router.post ("/register", passport.authenticate ("register",{
-    failureRedirect: "/failregister",
+    failureRedirect: "/api/session/failregister",
     failureFlash: true
 }) , async (req,res) => {
 
@@ -83,7 +85,7 @@ router.post ("/register", passport.authenticate ("register",{
 
     } catch (error){
 
-        console.log("🚀 ~ file: sessions.router.js:58 ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         res.status(500).send({error: "Failed to register"})
    
@@ -108,7 +110,7 @@ router.get("/logout", async (req,res)=>{
     } )
     } catch(error){
 
-        console.log("🚀 ~ file: sessions.router.js:46 ~ router.get ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         res.status(500).send({error: "Failed to logout"})
 
@@ -134,11 +136,13 @@ router.get("/github/callback", passport.authenticate("github",{
             password:"",
         }
 
+        req.logger.info({Data: req.logMessage, Message: req.session.user})
+
         return res.redirect("/products")
         
     } catch (error) {
 
-        console.log("🚀 ~ file: sessions.router.js:103 ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         res.status(500).send({error: "Failed to authenticate"})
         

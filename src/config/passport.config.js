@@ -35,7 +35,9 @@ passport.use("register", new LocalStrategy({
     const repeatedEmail = await UsersModels.findOne({email})
 
     if(repeatedEmail){ 
-        console.log ("ese mail ya esta en uso")
+
+        req.logger.warning({Data : req.logMessage, Message: "Mail already used"})
+        
         return done (null,false,{message:"Ese mail ya ha sido utilizado"})
     }
 
@@ -51,7 +53,8 @@ passport.use("register", new LocalStrategy({
     
    } catch (error) {
 
-    console.log("🚀 ~ file: passport.config.js:36 ~ error:", error)
+    req.logger.error({Data : req.logMessage, Message:`${error.message}`})
+    
     return done (error)
     
    }
@@ -70,14 +73,18 @@ passport.use("login", new LocalStrategy({
         const selectedUser = await UsersModels.findOne({email})
 
         if (!selectedUser) {
-            console.log("That user does not exist")
+
+            req.logger.warning({Data : req.logMessage, Message: "That user does not exist"})
+            
             return done (null,false)
         }
 
         const passwordValidation = await validPassword ( password, selectedUser.password)
 
         if (!passwordValidation){
-            console.log ("Incorrect password")
+
+            req.logger.warning({Data : req.logMessage, Message: "Incorrect password"})
+
             return done (null,false)
         }
 
@@ -86,7 +93,7 @@ passport.use("login", new LocalStrategy({
 
     } catch (error) {
 
-        console.log("🚀 ~ file: passport.config.js:82 ~ initializePassport ~ error:", error)
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
 
         return done (error)
         
@@ -122,7 +129,8 @@ passport.use("github", new GithubStrategy({
 
         } catch (error) {
             
-            console.log("🚀 ~ file: passport.config.js:106 ~ initializePassport ~ error:", error)
+            req.logger.error({Data : req.logMessage, Message:`${error.message}`})
+            
             return done(error)
             
         }

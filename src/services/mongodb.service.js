@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import config from "../config/config.js";
+import { logger } from "../utils/loggerConfig.js";
+import callsites from "callsites";
 
 const DB_HOST = config.DB_HOST
 const DB_PORT = config.DB_PORT
@@ -9,11 +11,19 @@ export const mongoUrl = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`
 
 const mongoDBService = async () => {
     try{
+
+        const stack = callsites()[1]
+
+        const location = `${stack.getFileName()}:${stack.getLineNumber()}`
+
         mongoose.connect(mongoUrl)
-        console.log("Connected to mongoose DB")
+
+        logger.http({Data: location , Message: "Connected to mogoose DB"})
+
     }
     catch(error){
-        console.log(error)
+
+        logger.error({Message:`${error.message}` })
     }
 }
 

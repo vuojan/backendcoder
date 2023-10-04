@@ -16,7 +16,7 @@ const logLevels = {
     production: "info"
 }
 
-const logger = winston.createLogger({
+export const logger = winston.createLogger({
 
     levels:{
 
@@ -42,9 +42,11 @@ const logger = winston.createLogger({
 
 })
 
-  export const useLogger = (req,res,next) => {
+  export const useLogger = async (req,res,next) => {
 
     req.logger = logger
+
+    req.logMessage = `Method: ${req.method} en URL: ${req.url}`
 
     next()
 }

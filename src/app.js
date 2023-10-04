@@ -20,6 +20,7 @@ import flash from "connect-flash"
 import config from "./config/config.js";
 import loggerRouter from "./routes/logger.router.js"
 import {useLogger} from "./utils/loggerConfig.js"
+import { logger } from "./utils/loggerConfig.js";
 
 
 const app = express();
@@ -62,15 +63,26 @@ app.use("/loggerTest", loggerRouter)
 
 const server = httpServer.listen (config.PORT, async ()=> {
 
-  await mongoDBService();
+  try {
 
-  console.log(`listening on ${config.PORT}`)
+    await mongoDBService();
+
+    logger.http({Message: `listening on ${config.PORT}` })
+    
+  } catch (error) {
+
+    logger.error({Message:`${error.message}` })
+    
+  }
 
 })
 
 server.on("error", (error) => {
-    console.log(error);
+
+    logger.error({Message:`${error.message}` })
+    
   });
+
 
 
 
@@ -85,7 +97,7 @@ io.on("connection", async (socket) => {
 
  })
 
- console.log(config.PORT)
+ 
 
 
 

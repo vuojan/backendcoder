@@ -4,7 +4,7 @@ const router = Router ()
 
 router.get("/debug", (req,res) => {
 
-    req.logger.debug({Method:req.method , URL:req.url, Message: "Logger debug"})
+    req.logger.debug({Data : req.logMessage, Message: "Logger debug"})
 
     res.send("Logger debug")
 
@@ -12,7 +12,7 @@ router.get("/debug", (req,res) => {
   
 router.get("/http", (req,res) => {
 
-    req.logger.http({Method:req.method , URL:req.url, Message: "Logger http"})
+    req.logger.http({Data : req.logMessage, Message: "Logger http"})
 
     res.send("Logger http")
 
@@ -21,7 +21,9 @@ router.get("/http", (req,res) => {
   
 router.get("/info", (req,res) => {
 
-    req.logger.info({Method:req.method , URL:req.url, Message: "Logger info"})
+    //req.logger.info({Method:req.method , URL:req.url, Message: "Logger info"})
+
+    req.logger.info( {Data : req.logMessage, Message: "Logger info"})
 
     res.send("Logger info")
 
@@ -29,7 +31,7 @@ router.get("/info", (req,res) => {
   
   router.get("/warning", (req,res) => {
 
-    req.logger.warning({Method:req.method , URL:req.url, Message: "Logger warning"})
+    req.logger.warning({Data : req.logMessage, Message: "Logger warning"})
 
     res.send("Logger warning")
 
@@ -43,7 +45,7 @@ router.get("/info", (req,res) => {
 
       } catch (error) {
 
-        req.logger.error({Method:req.method , URL:req.url, Message:`${error.message}`});
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`});
 
       } finally {
 
@@ -60,7 +62,7 @@ router.get("/info", (req,res) => {
 
       } catch (error) {
 
-        req.logger.fatal({Method:req.method , URL:req.url, Message:`${error.message}`});
+        req.logger.fatal({Data : req.logMessage, Message:`${error.message}`});
 
       } finally {
 

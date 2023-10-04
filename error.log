@@ -3,3 +3,40 @@ Tue Oct 03 2023 01:32:29 GMT-0300 (hora estándar de Argentina) [[35mfatal[39m
 Tue Oct 03 2023 01:38:13 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Method: 'GET', URL: '/error', Message: 'Error' }[39m
 Tue Oct 03 2023 01:38:49 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Method: 'GET', URL: '/error', Message: 'Error in API' }[39m
 Tue Oct 03 2023 01:39:29 GMT-0300 (hora estándar de Argentina) [[35mfatal[39m] : [35m{ Method: 'GET', URL: '/fatal', Message: 'Fatal Error in API' }[39m
+Tue Oct 03 2023 02:14:19 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /loggerTest/error',[39m
+[31m  Message: 'Error in API'[39m
+[31m}[39m
+Tue Oct 03 2023 02:14:28 GMT-0300 (hora estándar de Argentina) [[35mfatal[39m] : [35m{[39m
+[35m  Data: 'Method: GET en URL: /loggerTest/fatal',[39m
+[35m  Message: 'Fatal Error in API'[39m
+[35m}[39m
+Tue Oct 03 2023 23:36:21 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Message: 'req is not defined' }[39m
+Tue Oct 03 2023 23:40:04 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Message: 'req is not defined' }[39m
+Tue Oct 03 2023 23:58:20 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: POST en URL: /api/session/register',[39m
+[31m  Message: 'reqq is not defined'[39m
+[31m}[39m
+Wed Oct 04 2023 00:48:27 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/carts',[39m
+[31m  Message: 'req is not defined'[39m
+[31m}[39m
+Wed Oct 04 2023 00:50:19 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/carts',[39m
+[31m  Message: 'req is not defined'[39m
+[31m}[39m
+Wed Oct 04 2023 00:51:21 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Message: 'cartsss is not defined' }[39m
+Wed Oct 04 2023 00:53:26 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/carts',[39m
+[31m  Message: 'req is not defined'[39m
+[31m}[39m
+Wed Oct 04 2023 00:53:55 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/carts',[39m
+[31m  Message: 'method is not defined'[39m
+[31m}[39m
+Wed Oct 04 2023 00:55:27 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'file: CartMongoManager.js:16 ~ CartMongoManager ~ getCarts',[39m
+[31m  Message: 'cartsss is not defined'[39m
+[31m}[39m
+Wed Oct 04 2023 01:09:27 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Message: 'stack is not defined' }[39m
+Wed Oct 04 2023 01:09:36 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Message: 'stack is not defined' }[39m
