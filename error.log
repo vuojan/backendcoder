@@ -231,3 +231,23 @@ Sun Oct 22 2023 23:12:43 GMT-0300 (hora estándar de Argentina) [[31merror[39m
 [31m  Data: 'Method: POST en URL: /api/users/delete/',[39m
 [31m  Message: 'Cast to ObjectId failed for value "delete" (type string) at path "_id" for model "users"'[39m
 [31m}[39m
+Mon Oct 23 2023 20:23:48 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /products',[39m
+[31m  Message: "Cannot read properties of undefined (reading '_id')"[39m
+[31m}[39m
+Mon Oct 23 2023 20:23:58 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /products',[39m
+[31m  Message: "Cannot read properties of undefined (reading '_id')"[39m
+[31m}[39m
+Mon Oct 23 2023 20:26:40 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /products',[39m
+[31m  Message: 'productsWithCartId is not defined'[39m
+[31m}[39m
+Mon Oct 23 2023 20:26:44 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /products',[39m
+[31m  Message: 'productsWithCartId is not defined'[39m
+[31m}[39m
+Mon Oct 23 2023 20:27:03 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /products',[39m
+[31m  Message: 'userCart is not defined'[39m
+[31m}[39m

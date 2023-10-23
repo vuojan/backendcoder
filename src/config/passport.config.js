@@ -8,6 +8,7 @@ import { CartsModel } from "../Dao/models/cart.model.js";
 
 const GITHUB_CLIENT_ID = config.GITHUB_CLIENT_ID
 const GITHUB_CLIENT_SECRET = config.GITHUB_CLIENT_SECRET
+const callbackURL = `http://localhost:${process.env.PORT || 8084}/api/session/github/callback`
 
 const LocalStrategy = local.Strategy
 
@@ -118,7 +119,8 @@ passport.use("login", new LocalStrategy({
 passport.use("github", new GithubStrategy({
     clientID : GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:8084/api/session/github/callback"
+    // callbackURL: "http://localhost:8084/api/session/github/callback",
+    callbackURL: callbackURL
 }, async (accesToken, refreshToken, profile, done) =>{
 
         try {

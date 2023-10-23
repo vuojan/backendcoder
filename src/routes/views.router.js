@@ -65,13 +65,13 @@ router.get("/products", authMiddleware, async (req, res) => {
         } = await ProductsModel.paginate({},options)
 
         
-        const userId = req.user._id
-        const userCart = await UsersModels.findById(userId).populate('cart').lean()
+          const userId = req.user._id
+          const userCart = await UsersModels.findById(userId).populate('cart').lean()
 
-        const productsWithCartId = docs.map(product => {
-            product.userCartId = userCart.cart._id;
-            return product;
-        });
+          const productsWithCartId = docs.map(product => {
+              product.userCartId = userCart.cart._id;
+              return product;
+         });
 
         res.render("products", {
             products: productsWithCartId,

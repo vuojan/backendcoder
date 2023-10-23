@@ -249,8 +249,13 @@ export const purcharseProducts = async (req,res)=>{
          }
      }))
 
+     const totalPurchasedAmount = purcharsedProducts.reduce((total, productId) => {
+        const purchasedProduct = cart.products.find(product => product.id === productId);
+        return total + purchasedProduct.quantity;
+    }, 0);
+
      const ticket = new TicketModel({
-         amount: cart.products.reduce((total, cartProduct) => total + cartProduct.quantity, 0),
+         amount: totalPurchasedAmount,
          purcharser: req.session.user.email
      })
 
@@ -260,7 +265,16 @@ export const purcharseProducts = async (req,res)=>{
 
      await cartMongoManager.deleteManyProducts(cid,purcharsedProducts)
 
-    res.send({OrderTicket : newTicket , UnableToBuyProducts : failedToPurcharseProductos})
+    //  await cartMongoManager.deleteManyProducts(cid,failedToPurcharseProductos)
+
+    const response = {
+        OrderTicket: newTicket,
+        UnableToBuyProducts: failedToPurcharseProductos
+    };
+
+    // failedToPurcharseProductos.splice(0, failedToPurcharseProductos.length);
+
+    return httpStatus.OK(res, "Ticket generated", response)
 
    
      } catch(error) {
