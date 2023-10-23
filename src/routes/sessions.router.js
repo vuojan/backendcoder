@@ -9,12 +9,12 @@ import { roleAuthorize } from "../middleware/role.middleware.js";
 
 const router = Router ()
 
-router.get("/current", authMiddleware, roleAuthorize(["admin", "usuario"]), async (req,res)=> {
+ router.get("/current", authMiddleware, roleAuthorize(["admin", "usuario"]), async (req,res)=> {
 
     try {
 
         const userDto = new UserDto (req.session.user)
-
+        
         req.logger.info({Data: req.logMessage, Message: req.session.user})
 
         res.send(userDto)
@@ -34,15 +34,6 @@ router.post ("/login", passport.authenticate ("login",{
 }), async (req,res)=>{
 
     try{
-
-        if (req.user.email === 'adminCoder@coder.com' && req.user.password === 'adminCod3r123') {
-       
-            req.user.role = 'admin';
-     
-        } else {
-
-            req.user.role = 'usuario';
-      }
 
         req.session.user = {
             first_name: req.user.first_name,

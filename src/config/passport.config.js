@@ -4,6 +4,7 @@ import { UsersModels } from "../Dao/models/user.model.js";
 import { validPassword, createHashPsw } from "../utils/encrypt.js";
 import GithubStrategy from "passport-github2"
 import config from "./config.js";
+import { CartsModel } from "../Dao/models/cart.model.js";
 
 const GITHUB_CLIENT_ID = config.GITHUB_CLIENT_ID
 const GITHUB_CLIENT_SECRET = config.GITHUB_CLIENT_SECRET
@@ -28,6 +29,13 @@ passport.use("register", new LocalStrategy({
         password
     } = req.body
 
+    let role;
+        if (email === 'adminCoder@coder.com') {
+            role = 'admin';
+        } else {
+            role = 'usuario';
+        }
+
     if(!first_name || !last_name || !email || !age || !password ){
         return done (null,false, {message: "falta algun campo"})
     }
@@ -41,12 +49,17 @@ passport.use("register", new LocalStrategy({
         return done (null,false,{message:"Ese mail ya ha sido utilizado"})
     }
 
+    const cart = await CartsModel.create({products : []})
+
     const body = {  first_name, 
                     last_name, 
                     email, 
                     age, 
-                    password : await createHashPsw(password) }
-
+                    password : await createHashPsw(password),
+                    cart: cart._id,
+                    role: role
+                 }
+    
     const newUser = await UsersModels.create(body)
 
     return done (null, newUser)

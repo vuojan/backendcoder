@@ -26,7 +26,7 @@ export default class CartMongoManager{
 
         } catch (error){
             
-            logger.error({Data: "file: CartMongoManager.js:28 ~ CartMongoManager ~ addCart" ,Message:`${error.message}`})
+           logger.error({Data: "file: CartMongoManager.js:28 ~ CartMongoManager ~ addCart" ,Message:`${error.message}`})
         }
     }
 

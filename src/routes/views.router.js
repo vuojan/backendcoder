@@ -5,7 +5,8 @@ import { ProductsModel } from "../Dao/models/product.model.js";
 import CartMongoManager from "../Dao/managers/CartMongoManager.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 import { CartsModel } from "../Dao/models/cart.model.js";
-
+import {UsersModels} from "../Dao/models/user.model.js";
+import { roleAuthorize } from "../middleware/role.middleware.js";
 
 
 const router = Router ()
@@ -15,6 +16,7 @@ const manager = new ProductManager();
 const mongoManager = new ProductMongoManager();
 
 const cartMongoManager = new CartMongoManager ()
+
 
 router.get ("/", async (req,res) =>{
 
@@ -62,16 +64,24 @@ router.get("/products", authMiddleware, async (req, res) => {
           hasNextPage,
         } = await ProductsModel.paginate({},options)
 
-        const user = req.session.user
+        
+        const userId = req.user._id
+        const userCart = await UsersModels.findById(userId).populate('cart').lean()
+
+        const productsWithCartId = docs.map(product => {
+            product.userCartId = userCart.cart._id;
+            return product;
+        });
 
         res.render("products", {
-            products: docs,
+            products: productsWithCartId,
             prevPage,
             nextPage,
             page,
             hasPrevPage,
             hasNextPage,
-            user: user
+            user: req.session.user,
+            userCart: userCart
         })
 
     } catch (error) {
@@ -132,6 +142,24 @@ router.get ("/register", async (req,res)=>{
         res.status(500).send({error: "Failed to render"})
 
     }
+})
+
+router.get ("/users", roleAuthorize ("admin"), async (req,res) =>{
+
+    try {
+
+        const users = await UsersModels.find().lean()
+
+        res.render("users", {users:users})
+        
+    } catch (error) {
+
+        req.logger.error({Data : req.logMessage, Message:`${error.message}`})
+
+        res.status(500).send({error: "Failed to render"})
+        
+    }
+
 })
 
 

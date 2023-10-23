@@ -10,6 +10,10 @@
   <ul>
         <li>
             <p>{{this.title}} : $ {{this.price}}</p>
+
+                <form action= "api/carts/{{userCartId}}/products/{{this._id}}" method="POST">
+                  <button type="submit">Agregar al Carrito</button>
+                </form>
         </li>
     </ul>
   {{/each}}
@@ -38,6 +42,15 @@
         <button type="submit">Log_Out</button>
     
     </form>
+  </div>
+  <div>
+   <form 
+    action="/api/carts/{{userCart.cart._id}}/purcharse" 
+    method="POST"
+  >
+    <button type="submit">Realizar Compra</button>
+  </form>
+
   </div>
 
 </div>

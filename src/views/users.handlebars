@@ -1,0 +1,57 @@
+<body>
+    <h1>User List</h1>
+
+    <ul>
+        {{#each users}}
+        <li>
+            <p>Name: {{this.first_name}} {{this.last_name}}</p>
+
+            <p>Email: {{this.email}}</p>
+
+            <p>Age: {{this.age}}</p>
+
+            <p>Role: {{this.role}}</p>
+
+            <form id="changeRoleForm" action="api/users/{{this._id}}" method="POST">
+                <button type="submit">Change Role</button>
+            </form>
+
+            <button onclick="deleteUser('{{this._id}}')">Delete User</button>
+
+        </li>
+        {{else}}
+        <li>No users found.</li>
+        {{/each}}
+    </ul>
+
+    
+<script>
+    async function deleteUser(userId) {
+        try {
+            const response = await fetch(`/api/users/delete/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+            
+                console.log('User deleted');
+
+                window.location.reload();
+                
+            } else {
+                
+                console.error('Error deleting user', response.status);
+            }
+        } catch (error) {
+
+            console.log("🚀 ~ file: users.handlebars:50 ~ deleteUser ~ error:", error)
+            
+        }
+    }
+
+</script>
+
+</body>

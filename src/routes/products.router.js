@@ -6,7 +6,7 @@ import { roleAuthorize } from "../middleware/role.middleware.js";
 const router = Router ()
 
 
-router.get ("/", getProducts)
+router.get ("/", roleAuthorize(["admin","usuario"]), getProducts)
 
 router.get ("/mockproducts", generateProducts )
 

@@ -83,6 +83,8 @@ export const getProductById = async (req,res) => {
 
         if (!product) return httpStatus.NOT_FOUND(res,`${errors.INVALID_RESOURCE}`)
 
+        req.logger.info({Data : req.logMessage})
+
         return httpStatus.OK(res, "Product found", product)
 
      } catch (error) {
@@ -199,7 +201,7 @@ export const generateProducts = async (req,res) =>{
 
         const products = []
 
-        for (let index = 0; index < 100; index++) {
+        for (let index = 0; index < 20; index++) {
 
             products.push(mockProducts())
             

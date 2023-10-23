@@ -40,3 +40,194 @@ Wed Oct 04 2023 00:55:27 GMT-0300 (hora estándar de Argentina) [[31merror[39m
 [31m}[39m
 Wed Oct 04 2023 01:09:27 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Message: 'stack is not defined' }[39m
 Wed Oct 04 2023 01:09:36 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Message: 'stack is not defined' }[39m
+Sun Oct 22 2023 10:51:11 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: POST en URL: /api/session/register',[39m
+[31m  Message: "Cannot read properties of null (reading 'status')"[39m
+[31m}[39m
+Sun Oct 22 2023 10:51:11 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: POST en URL: /api/session/register',[39m
+[31m  Message: "Cannot read properties of null (reading 'status')"[39m
+[31m}[39m
+Sun Oct 22 2023 10:53:02 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: POST en URL: /api/session/register',[39m
+[31m  Message: 'Cannot set headers after they are sent to the client'[39m
+[31m}[39m
+Sun Oct 22 2023 12:57:26 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /products',[39m
+[31m  Message: 'Cast to ObjectId failed for value "adminCoder@coder.com" (type string) at path "_id" for model "users"'[39m
+[31m}[39m
+Sun Oct 22 2023 13:00:34 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /products',[39m
+[31m  Message: 'userCart is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 13:00:35 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /products',[39m
+[31m  Message: 'userCart is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 13:02:21 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /products',[39m
+[31m  Message: `Schema hasn't been registered for model "collection_carts".\n` +[39m
+[31m    'Use mongoose.model(name, schema)'[39m
+[31m}[39m
+Sun Oct 22 2023 13:24:51 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /products',[39m
+[31m  Message: 'Assignment to constant variable.'[39m
+[31m}[39m
+Sun Oct 22 2023 13:25:24 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /products',[39m
+[31m  Message: "Cannot access 'userCart' before initialization"[39m
+[31m}[39m
+Sun Oct 22 2023 14:05:29 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /products',[39m
+[31m  Message: 'product.toObject is not a function'[39m
+[31m}[39m
+Sun Oct 22 2023 14:29:39 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'file: CartMongoManager.js:109 ~ CartMongoManager ~ deleteAllProducts',[39m
+[31m  Message: 'Cast to ObjectId failed for value "653531c5a03309e7354f41" (type string) at path "_id" for model "carts"'[39m
+[31m}[39m
+Sun Oct 22 2023 14:30:46 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a97d6fdd62d69667c80753%0A',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:30:48 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a97d6fdd62d69667c80753%0A',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:30:57 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a97d6fdd62d69667c80753%0A',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:30:58 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a97d6fdd62d69667c80753%0A',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:31:39 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a97d6fdd62d69667c80753%0A',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:32:30 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a97d6fdd62d69667c80753%0A',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:32:51 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a97d6fdd62d69667c80753%0A',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:33:47 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a9910386d95bd6a49fa9e1%0A',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:35:22 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/%0A',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:36:02 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'file: CartMongoManager.js:40 ~ CartMongoManager ~ getCartById',[39m
+[31m  Message: 'Cast to ObjectId failed for value "\\n" (type string) at path "_id" for model "carts"'[39m
+[31m}[39m
+Sun Oct 22 2023 14:37:36 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a9910386d95bd6a49fa9e1%0A',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:39:15 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'file: CartMongoManager.js:40 ~ CartMongoManager ~ getCartById',[39m
+[31m  Message: 'Cast to ObjectId failed for value "64a97d6fdd62d69667c8075" (type string) at path "_id" for model "carts"'[39m
+[31m}[39m
+Sun Oct 22 2023 14:40:05 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/123123',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:40:07 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/123123',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:40:08 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/123123',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:40:10 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/12312344',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:40:19 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/asdasdas',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:42:23 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/asdasdas',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:42:27 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a9910386d95bd6a49fa9e1%0A',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 14:55:06 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/s%3AOX1Q5du_Nab7M38SelTvHjZndyl0EO48.jxICp0tbUacRDWGb4YHnuWYpfG74c1McfOIIC2rUigY',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 20:45:28 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: DELETE en URL: /api/users',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 20:45:57 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: DELETE en URL: /api/users',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 20:46:40 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: DELETE en URL: /api/users',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 20:47:10 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: DELETE en URL: /api/users',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 20:47:25 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: DELETE en URL: /api/users',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 20:47:48 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: DELETE en URL: /api/users',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 20:50:02 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'file: UserManager.js:27 ~ UsersMongoManager ~ deleteUsers',[39m
+[31m  Message: 'User is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 20:58:15 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a97d6fdd62d69667c80753',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 20:58:25 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a97d6fdd62d69667c80753',[39m
+[31m  Message: 'req is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 20:58:50 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/products/64a97d6fdd62d69667c80753',[39m
+[31m  Message: 'logger is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 20:59:46 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'file: ProductMongoManager.js:47 ~ ProductMongoManager ~ getProductById',[39m
+[31m  Message: 'products is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 21:00:40 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'file: UserManager.js:27 ~ UsersMongoManager ~ deleteUsers',[39m
+[31m  Message: 'User is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 21:16:56 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Data: 'Method: GET en URL: /users', Message: 'role is not defined' }[39m
+Sun Oct 22 2023 21:18:25 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{ Data: 'Method: GET en URL: /users', Message: 'role is not defined' }[39m
+Sun Oct 22 2023 21:19:26 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: GET en URL: /api/users',[39m
+[31m  Message: 'role is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 22:00:47 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: PUT en URL: /api/users/6535c26dc9bbff389f19f200',[39m
+[31m  Message: 'UsersModels is not defined'[39m
+[31m}[39m
+Sun Oct 22 2023 23:04:34 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'file: UserManager.js:44 ~ UsersMongoManager ~ deleteUsers',[39m
+[31m  Message: '{(intermediate value)}.lean is not a function'[39m
+[31m}[39m
+Sun Oct 22 2023 23:12:43 GMT-0300 (hora estándar de Argentina) [[31merror[39m] : [31m{[39m
+[31m  Data: 'Method: POST en URL: /api/users/delete/',[39m
+[31m  Message: 'Cast to ObjectId failed for value "delete" (type string) at path "_id" for model "users"'[39m
+[31m}[39m

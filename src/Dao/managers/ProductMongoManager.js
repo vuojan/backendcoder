@@ -1,4 +1,5 @@
 import { ProductsModel } from "../models/product.model.js";
+import { logger } from "../../utils/loggerConfig.js";
 
 export default class ProductMongoManager {
     constructor(){

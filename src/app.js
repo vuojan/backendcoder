@@ -21,6 +21,9 @@ import config from "./config/config.js";
 import loggerRouter from "./routes/logger.router.js"
 import {useLogger} from "./utils/loggerConfig.js"
 import { logger } from "./utils/loggerConfig.js";
+import usersRouter from "./routes/users.router.js"
+import displayRoutes from "express-routemap";
+import methodOverride from "method-override"
 
 
 const app = express();
@@ -49,6 +52,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
 app.use(useLogger)
+app.use(methodOverride('_method'))
 
 app.engine ("handlebars", handlebars.engine())
 app.set("views", `${__dirname}/../views`)
@@ -59,6 +63,7 @@ app.use("/api/products", productsRouter)
 app.use("/api/carts", cartsRouter)
 app.use("/", viewsRouter)
 app.use("/loggerTest", loggerRouter)
+app.use("/api/users", usersRouter)
 
 
 const server = httpServer.listen (config.PORT, async ()=> {
@@ -66,6 +71,8 @@ const server = httpServer.listen (config.PORT, async ()=> {
   try {
 
     await mongoDBService();
+
+    displayRoutes(app);
 
     logger.http({Message: `listening on ${config.PORT}` })
     

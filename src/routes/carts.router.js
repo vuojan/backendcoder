@@ -14,7 +14,7 @@ router.get ("/:cid", getCartById )
 
 router.post ("/", addCart)
 
-router.post ("/:cid/products/:id", roleAuthorize("usuario"), addProductIntoCart )
+router.post ("/:cid/products/:id", addProductIntoCart )
 
 router.delete ("/:cid/products/:pid", deleteProductInCart)
 
