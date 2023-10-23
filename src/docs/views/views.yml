@@ -1,0 +1,77 @@
+paths:
+  /realtimeproducts:
+    get:
+      summary: get and show real-time products
+      tags:
+        - views
+      responses:
+        "200":
+          description: successful response
+        "500":
+          description: internal server error
+  /products:
+    get:
+      summary: get and sow products (Authenticated)
+      tags:
+        - views
+      responses:
+        "200":
+          description: successful response
+        "401":
+          description: wrong credentials
+        "500":
+          description: internal server error
+  /carts/{cid}:
+    get:
+      summary: get and show a specific cart by ID
+      tags:
+        - views
+      parameters:
+        - in: path
+          name: cid
+          schema:
+            type: string
+          required: true
+          description: ID of the cart to retrieve
+      responses:
+        "200":
+          description: successful response
+        "404":
+          description: cart not found
+        "500":
+          description: internal server error
+  /login:
+    get:
+      summary: display the login page
+      tags:
+        - views
+      responses:
+        "200":
+          description: successful response, returns the login page
+        "500":
+          description: internal server error
+  /register:
+    get:
+      summary: display the registration page
+      tags:
+        - views
+      responses:
+        "200":
+          description: successful response, returns the registration page
+        "500":
+          description: internal server error
+  /users:
+    get:
+      summary: get all users (Admin only)
+      tags:
+        - views
+      responses:
+        "200":
+          description: successful response, returns a list of users
+        "401":
+          description: wrong credentials
+        "500":
+          description: internal server error
+  
+  
+  

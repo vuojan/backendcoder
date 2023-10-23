@@ -1,0 +1,94 @@
+paths:
+  /api/products:
+    get:
+      summary: get all products
+      tags:
+        - products
+      responses:
+        "200":
+          description: successful response
+        "500":
+          description: internal server error
+    post:
+      summary: add a new product (Admin only)
+      tags:
+        - products
+      responses:
+        "201":
+          description: Product added successfully
+        "403":
+          description: Forbidden, user does not have the necessary permissions
+        "500":
+          description: Internal server error
+  /api/mockproducts:
+    get:
+      summary: generate mock products
+      tags:
+        - products
+      responses:
+        "200":
+          description: products generated successfully
+        "500":
+          description: Internal server error
+  /api/products/{id}:
+    get:
+      summary: get a specific product by ID
+      tags:
+        - products
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the product to retrieve
+      responses:
+        "200":
+          description: Successful response
+        "404":
+          description: product not found
+        "500":
+          description: internal server error
+    put:
+      summary: update a specific product by ID (Admin only)
+      tags:
+        - products
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the product to update
+      responses:
+        "200":
+          description: product updated successfully
+        "404":
+          description: product not found
+        "403":
+          description: forbidden, user does not have the necessary permissions
+        "500":
+          description: internal server error
+    delete:
+      summary: delete a specific product by ID (Admin only)
+      tags:
+        - products
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the product to delete
+      responses:
+        "200":
+          description: product deleted successfully
+        "404":
+          description: product not found
+        "403":
+          description: forbidden, user does not have the necessary permissions
+        "500":
+          description: internal server error
+
+    
+  

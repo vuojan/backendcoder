@@ -1,0 +1,59 @@
+paths:
+  /api/users:
+    get:
+      summary: get all users
+      tags:
+        - users
+      responses:
+        "200":
+          description: users loaded
+        "500":
+          description: internal server error
+    delete:
+      summary: delete all users
+      tags:
+        - users
+      responses:
+        "200":
+          description: users deleted successfully
+        "500":
+          description: internal server error
+  /api/users/{userId}:
+    post:
+      summary: update the role of a specific user by ID
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: ID of the user to update
+      responses:
+        "200":
+          description: user role updated successfullyt
+        "404":
+          description: user not found
+        "500":
+          description: internal server error
+  /api/users/delete/{userId}:
+    delete:
+      summary: delete a specific user by ID
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: ID of the user to delete
+      responses:
+        "200":
+          description: user deleted successfully
+        "404":
+          description: user not found
+        "500":
+          description: internal server error
+    

@@ -1,0 +1,38 @@
+paths:
+  /api/sessions/current:
+    get:
+      summary: get current session data (Admin and User)
+      tags:
+        - sessions
+      responses:
+        "200":
+          description: successful response, returns the current session data
+        "401":
+          description: wrong credentials
+        "500":
+          description: internal server error
+  /api/sessions/login:
+    post:
+      summary: user login
+      tags:
+        - sessions
+      responses:
+        "200":
+          description: successful login, returns products view
+        "401":
+          description: wrong credentials
+        "500":
+          description: internal server error
+  /api/sessions/register:
+    post:
+      summary: user registration
+      tags:
+        - sessions
+      responses:
+        "201":
+          description: user registered successfully, returns login view
+        "400":
+          description: bad request, invalid input
+        "500":
+          description: internal server error
+  

@@ -24,6 +24,9 @@ import { logger } from "./utils/loggerConfig.js";
 import usersRouter from "./routes/users.router.js"
 import displayRoutes from "express-routemap";
 import methodOverride from "method-override"
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express"
+import { swaggerOpts } from "./config/swagger.config.js";
 
 
 const app = express();
@@ -58,12 +61,15 @@ app.engine ("handlebars", handlebars.engine())
 app.set("views", `${__dirname}/../views`)
 app.set("view engine", "handlebars")
 
+const specs = swaggerJSDoc(swaggerOpts)
+
 app.use("/api/session", sessionRouter)
 app.use("/api/products", productsRouter)
 app.use("/api/carts", cartsRouter)
 app.use("/", viewsRouter)
 app.use("/loggerTest", loggerRouter)
 app.use("/api/users", usersRouter)
+app.use("/api/docs/", swaggerUi.serve, swaggerUi.setup(specs) )
 
 
 const server = httpServer.listen (config.PORT, async ()=> {
