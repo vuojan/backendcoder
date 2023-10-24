@@ -7,12 +7,12 @@ import viewsRouter from "./routes/views.router.js";
 import handlebars from "express-handlebars";
 import __dirname from "./utils/utils.js";
 import ProductManager from "./Dao/managers/ProductManager.js"
-import mongoDBService from "./services/mongoDb.service.js";
+import mongoDBService from "./services/mongodb.service.js";
 import ProductMongoManager from "./Dao/managers/ProductMongoManager.js";
 import cookieParser from "cookie-parser";
 import MongoStore from "connect-mongo";
 import session from "express-session";
-import { mongoUrl } from "./services/mongoDb.service.js";
+import { mongoUrl } from "./services/mongodb.service.js";
 import sessionRouter from "./routes/sessions.router.js"
 import initializePassport from "./config/passport.config.js";
 import passport from "passport";
